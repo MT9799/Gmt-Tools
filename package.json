@@ -1,5 +1,5 @@
 {
-  "name": "Gmt",
+  "name": "gmt",
   "displayName": "Gmt Extension Pack",
   "description": "Syntax highlighting for gmt files of the game Euclidea",
   "version": "0.0.1",
@@ -8,6 +8,17 @@
   },
   "categories": [
     "Programming Languages"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MT9799/Gmt-Syntax-Highlighting"
+  },
+  "author": "MT9799",
+  "keywords": [
+    "gmt",
+    "syntax",
+    "highlighting",
+    "Extension"
   ],
   "contributes": {
     "languages": [{
@@ -20,6 +31,10 @@
       "language": "gmt",
       "scopeName": "source.gmt",
       "path": "./syntaxes/gmt.tmLanguage.json"
+    }],
+    "snippets": [{
+      "language": "gmt",
+      "path": "./snippets/gmt.json"
     }]
   }
 }
