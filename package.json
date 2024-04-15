@@ -1,0 +1,25 @@
+{
+  "name": "Gmt",
+  "displayName": "Gmt Extension Pack",
+  "description": "Syntax highlighting for gmt files of the game Euclidea",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "gmt",
+      "aliases": ["Gmt", "gmt"],
+      "extensions": [".gmt"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "gmt",
+      "scopeName": "source.gmt",
+      "path": "./syntaxes/gmt.tmLanguage.json"
+    }]
+  }
+}
