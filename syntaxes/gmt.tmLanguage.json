@@ -5,10 +5,10 @@
       "include": "#comments"
     },
     {
-      "include": "#strings"
+      "include": "#functions"
     },
     {
-      "include": "#keywords"
+      "include": "#operators"
     },
     {
       "include": "#variables"
@@ -17,32 +17,32 @@
       "include": "#constants"
     },
     {
-      "include": "#punctuations"
+      "include": "#connectors"
     }
   ],
   "repository": {
     "comments": {
       "patterns": [
         {
-          "name": "comment.block",
+          "name": "comment",
           "match": "^#.*$"
         }]
     },
-    "keywords": {
+    "operators": {
       "patterns": [
         {
-          "name": "constant.numeric",
+          "name": "operator",
           "match": ">|<|/|#"
         }]
     },
-    "strings": {
+    "functions": {
       "patterns": [
         {
-          "name": "entity.name.class",
+          "name": "function.construction",
           "match": "Linepoint|Segment|Ray|Line|Intersect|EdgePoint|CenterPoint|Circle3|Midpoint|Parallel|Perp|ABisect|PBisect|ShiftSeg|Compass|Circle|FixAngle|CopyAngle|Tangent|PolarLine|PolarPoint"
         },
         {
-          "name": "entity.name.function",
+          "name": "function.levelsetting",
           "match": "initial|movepoints|hidden|named|result|explore|rules|check_level|undolist"
         }
       ]
@@ -50,25 +50,41 @@
     "variables": {
       "patterns": [
         {
-          "name": "variable.name",
+          "name": "variable.named",
+          "match": "(?<=named.+[\u002e])[A-Za-z]"
+        },
+        {
+          "name": "variable.line",
+          "match": "[Ss][0-9]+"
+        },
+        {
+          "name": "variable.circle",
+          "match": "([c][0-9]+)"
+        },
+        {
+          "name": "variable.point",
+          "match": "([A-RT-Z][0-9]*)|[A-Z]"
+        },
+        {
+          "name": "variable.other",
           "match": "[A-Za-z][A-Za-z0-9_]*"
         }]
     },
-    "punctuations": {
+    "connectors": {
       "patterns": [
         {
-          "name": "keyword.control",
+          "name": "connector",
           "match": "[\u002e]|:"
         }]
     },
     "constants": {
       "patterns": [
         {
-          "name": "markup.bold",
+          "name": "constant.argument",
           "match": "((?<=(Intersect|EdgePoint|Tangent).+)(0|1)(?=]))|((?<=Intersect.+)(0|1)(?=,.+]))"
         },
         {
-          "name": "string",
+          "name": "constant.value",
           "match": "-?[0-9]+[\u002e]?[0-9]*"
         }
       ]

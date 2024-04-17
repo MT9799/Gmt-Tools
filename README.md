@@ -1,21 +1,40 @@
-# Gmt-Syntax-Highlighting
+# Gmt-Extension-Pack
 
-A syntax highlighting extension pack for gmt files of the game Euclidea.
+A multifunctional extension pack for gmt files of the game Euclidea.
 
 ## Features
 
-Display various parts of the code in different colors for easy editing and debugging.
+**Display various parts of the code in different colors for easy editing and debugging:**
 
-* Geometric figures(like 'A', 'S1' and 'c1'): light blue
-* Constructional functions(like 'Line' and 'Circle'): cyan
-* Numbers: orange
-* Arguments(in the functions 'Intersect', 'EdgePoint' and 'Tangent'): dark blue, bold
-* Level setting variables(like 'initial', 'result' and 'explore'): yellow
-* Connecting symbols(':' and '.'): purple
-* Comparing symbols('#', '/', '<' and '>'): light green
-* Comments: dark green
+Geometric figures(points, lines, circles, names)
 
-![1713154711709](image/README/1713154711709.png)
+Constructional functions(like 'Line' and 'Circle')
+
+Numbers(values)
+
+Arguments(in the functions 'Intersect', 'EdgePoint' and 'Tangent')
+
+Level setting variables(like 'initial', 'result' and 'explore')
+
+Connecting symbols(':' and '.')
+
+Operating symbols('#', '/', '<' and '>')
+
+Comments
+
+![1713154711709](image/README/syntaxhighlighting.png)
+
+---
+
+**Automatic completion of functions and blocks:**
+
+Constructional functions
+
+level settings
+
+![1713283597070](image/README/intellisence.png)
+
+---
 
 ## Usage
 

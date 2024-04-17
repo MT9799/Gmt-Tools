@@ -1,7 +1,7 @@
 {
   "name": "gmt",
   "displayName": "Gmt Extension Pack",
-  "description": "Syntax highlighting for gmt files of the game Euclidea",
+  "description": "An extension pack for gmt files of the game Euclidea",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.88.0"
@@ -11,13 +11,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/MT9799/Gmt-Syntax-Highlighting"
+    "url": "https://github.com/MT9799/Gmt-Extension-Pack"
   },
   "author": "MT9799",
   "keywords": [
     "gmt",
-    "syntax",
-    "highlighting",
     "Extension"
   ],
   "contributes": {
@@ -35,6 +33,11 @@
     "snippets": [{
       "language": "gmt",
       "path": "./snippets/gmt.json"
+    }],
+    "themes": [{
+      "label": "SyntaxHighlightingTheme",
+      "uiTheme": "vs-dark",
+      "path": "./themes/theme.tmTheme"
     }]
   }
 }
