@@ -8,7 +8,7 @@ A multifunctional extension pack for gmt files of the game Euclidea.
 
 Geometric figures(points, lines, circles, names)
 
-Constructional functions(like 'Line' and 'Circle')
+Constructional functions(like 'Line' and 'Circle', basic and advanced)
 
 Numbers(values)
 
@@ -16,7 +16,7 @@ Arguments(in the functions 'Intersect', 'EdgePoint' and 'Tangent')
 
 Level setting variables(like 'initial', 'result' and 'explore')
 
-Connecting symbols(':' and '.')
+Connecting symbols(':', '.' and '|')
 
 Operating symbols('#', '/', '<' and '>')
 

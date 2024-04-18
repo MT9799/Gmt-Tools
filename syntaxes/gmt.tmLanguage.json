@@ -17,7 +17,7 @@
       "include": "#constants"
     },
     {
-      "include": "#connectors"
+      "include": "#punctuations"
     }
   ],
   "repository": {
@@ -38,8 +38,12 @@
     "functions": {
       "patterns": [
         {
-          "name": "function.construction",
-          "match": "Linepoint|Segment|Ray|Line|Intersect|EdgePoint|CenterPoint|Circle3|Midpoint|Parallel|Perp|ABisect|PBisect|ShiftSeg|Compass|Circle|FixAngle|CopyAngle|Tangent|PolarLine|PolarPoint"
+          "name": "function.construction.advanced",
+          "match": "EdgePoint|CenterPoint|Circle3|Midpoint|Parallel|Perp|ABisect|PBisect|ShiftSeg|Compass|FixAngle|CopyAngle|Tangent|PolarLine|PolarPoint"
+        },
+        {
+          "name": "function.construction.basic",
+          "match": "Linepoint|Segment|Ray|Line|Intersect|Circle"
         },
         {
           "name": "function.levelsetting",
@@ -51,7 +55,7 @@
       "patterns": [
         {
           "name": "variable.named",
-          "match": "(?<=named.+[\u002e])[A-Za-z]"
+          "match": "(?<=named.+\\.)[A-Za-z]"
         },
         {
           "name": "variable.line",
@@ -70,12 +74,17 @@
           "match": "[A-Za-z][A-Za-z0-9_]*"
         }]
     },
-    "connectors": {
+    "punctuations": {
       "patterns": [
         {
-          "name": "connector",
-          "match": "[\u002e]|:"
-        }]
+          "name": "punctuation.connector",
+          "match": "\\.|\\||:"
+        },
+        {
+          "name": "punctuation.bracket",
+          "match": "\\[|\\]"
+        }
+      ]
     },
     "constants": {
       "patterns": [
@@ -85,7 +94,7 @@
         },
         {
           "name": "constant.value",
-          "match": "-?[0-9]+[\u002e]?[0-9]*"
+          "match": "-?[0-9]+\\.?[0-9]*"
         }
       ]
     }

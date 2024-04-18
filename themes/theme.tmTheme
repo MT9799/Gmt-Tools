@@ -14,7 +14,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#679955</string>
+				<string>#008000</string>
 			</dict>
 		</dict>
 		<dict>
@@ -25,7 +25,7 @@
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
-				<string></string>
+				<string>bold</string>
 				<key>foreground</key>
 				<string>#b5cea8</string>
 			</dict>
@@ -34,13 +34,26 @@
 			<key>name</key>
 			<string>functions</string>
 			<key>scope</key>
-			<string>function.construction</string>
+			<string>function.construction.advanced</string>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#71d4c0</string>
+				<string>#ff8dfb</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>functions</string>
+			<key>scope</key>
+			<string>function.construction.basic</string>
+			<key>settings</key>
+			<dict>
+				<key>fontStyle</key>
+				<string></string>
+				<key>foreground</key>
+				<string>#ffd7af</string>
 			</dict>
 		</dict>
 		<dict>
@@ -53,7 +66,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#e0e0af</string>
+				<string>#ffc000</string>
 			</dict>
 		</dict>
 		<dict>
@@ -64,9 +77,9 @@
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
-				<string>italic</string>
+				<string></string>
 				<key>foreground</key>
-				<string>#dddddd</string>
+				<string>#cccccc</string>
 			</dict>
 		</dict>
 		<dict>
@@ -79,7 +92,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#4d8cc1</string>
+				<string>#a5e3ff</string>
 			</dict>
 		</dict>
 		<dict>
@@ -92,7 +105,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#8882b1</string>
+				<string>#1fa3ff</string>
 			</dict>
 		</dict>
 		<dict>
@@ -105,7 +118,7 @@
 				<key>fontStyle</key>
 				<string>italic</string>
 				<key>foreground</key>
-				<string>#a7d9f7</string>
+				<string>#00ffff</string>
 			</dict>
 		</dict>
 		<dict>
@@ -118,20 +131,33 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#9cdcfe</string>
+				<string>#adecee</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>connectors</string>
+			<string>punctuations</string>
 			<key>scope</key>
-			<string>connector</string>
+			<string>punctuation.connector</string>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
 				<string>bold</string>
 				<key>foreground</key>
 				<string>#cb92c6</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>punctuations</string>
+			<key>scope</key>
+			<string>punctuation.bracket</string>
+			<key>settings</key>
+			<dict>
+				<key>fontStyle</key>
+				<string>bold</string>
+				<key>foreground</key>
+				<string>#d7d2b5</string>
 			</dict>
 		</dict>
 		<dict>
@@ -144,7 +170,7 @@
 				<key>fontStyle</key>
 				<string>bold</string>
 				<key>foreground</key>
-				<string>#b26473</string>
+				<string>#ff9191</string>
 			</dict>
 		</dict>
 		<dict>
@@ -157,7 +183,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#d8a793</string>
+				<string>#99de7a</string>
 			</dict>
 		</dict>
 	</array>
