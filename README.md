@@ -32,6 +32,8 @@ Constructional functions
 
 level settings
 
+Variables
+
 ![1713283597070](image/README/intellisence.png)
 
 ---
@@ -39,7 +41,7 @@ level settings
 ## Usage
 
 0. Visual Studio Code (with Nodejs) ; Git
-1. Open this extension pack
+1. Open this extension pack in VSCode
 2. F5 to open a new VSCode window
 3. Open a gmt file
 4. Enjoy

@@ -1,3 +1,7 @@
+## v0.4.0
+
+Add accurate completion on variable types
+
 ## v0.3.0
 
 Supporting syntax highlighting styles under personalized settings

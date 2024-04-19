@@ -66,12 +66,12 @@
           "match": "([c][0-9]+)"
         },
         {
-          "name": "variable.point",
-          "match": "([A-RT-Z][0-9]*)|[A-Z]"
+          "name": "variable.other",
+          "match": "([A-Za-z][A-Za-z]+[0-9]*)|[a-z]"
         },
         {
-          "name": "variable.other",
-          "match": "[A-Za-z][A-Za-z0-9_]*"
+          "name": "variable.point",
+          "match": "([A-RT-Z][0-9]*)|[A-Z]"
         }]
     },
     "punctuations": {
