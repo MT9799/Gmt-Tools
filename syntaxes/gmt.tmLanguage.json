@@ -90,7 +90,7 @@
       "patterns": [
         {
           "name": "constant.argument",
-          "match": "((?<=(Intersect|EdgePoint|Tangent).+)(0|1)(?=]))|((?<=Intersect.+)(0|1)(?=,.+]))"
+          "match": "((?<=EdgePoint\\[[^,]*,)(0|1))|((?<=(Intersect|Tangent)\\[[^,]*,[^,]*,)(0|1))"
         },
         {
           "name": "constant.value",

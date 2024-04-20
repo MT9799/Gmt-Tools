@@ -120,16 +120,6 @@
       "body": "C=[${1:PosX},${2:PosY}]",
       "description": "Draw the point C in canvas"
     },
-  "PointD": {
-      "prefix": "D",
-      "body": "D=[${1:PosX},${2:PosY}]",
-      "description": "Draw the point D in canvas"
-    },
-  "PointE": {
-      "prefix": "E",
-      "body": "E=[${1:PosX},${2:PosY}]",
-      "description": "Draw the point E in canvas"
-    },
   "Initial": {
       "prefix": "initial",
       "body": "initial=${1:Obj}",

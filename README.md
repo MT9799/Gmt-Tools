@@ -1,6 +1,6 @@
 # Gmt-Extension-Pack
 
-A multifunctional extension pack for gmt files of the game Euclidea.
+A multifunctional extension pack for gmt files of the game Euclidea in Visual Studio Code.
 
 ## Features
 
@@ -22,7 +22,7 @@ Operating symbols('#', '/', '<' and '>')
 
 Comments
 
-![1713154711709](image/README/syntaxhighlighting.png)
+![SyntaxHighlighting](image/README/syntaxhighlighting.png)
 
 ---
 
@@ -30,18 +30,18 @@ Comments
 
 Constructional functions
 
-level settings
+Level settings
 
-Variables
+Variables (more accurate)
 
-![1713283597070](image/README/intellisence.png)
+![IntelliSence](image/README/intellisence.png)
 
 ---
 
 ## Usage
 
 0. Visual Studio Code (with Nodejs) ; Git
-1. Open this extension pack in VSCode
+1. Open this extension pack (folder) in VSCode
 2. F5 to open a new VSCode window
 3. Open a gmt file
 4. Enjoy

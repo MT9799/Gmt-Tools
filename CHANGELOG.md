@@ -1,3 +1,7 @@
+## v0.4.1
+
+Fixed bugs
+
 ## v0.4.0
 
 Add accurate completion on variable types
