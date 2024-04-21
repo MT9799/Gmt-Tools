@@ -8,6 +8,7 @@ function activate(context) {
           provideCompletionItems(document, position) {
 
             function varlist(arg){
+                var varFreePt = [];
                 var varPoint = [];
                 var varLine = [];
                 var varCircle = [];
@@ -18,7 +19,10 @@ function activate(context) {
                     const variablePrefix = document.lineAt(i).text;
                     var varConsts = variablePrefix.match('^.*(?==)');
                     
-                    if (variablePrefix.match('=(Intersect|Linepoint|Midpoint|EdgePoint|CenterPoint|PolarPoint)?\\[')){
+                    if (variablePrefix.match('=(Linepoint)?\\[')){
+                        varFreePt.splice(0,0,varConsts[0]);
+                    }
+                    else if (variablePrefix.match('=(Linepoint|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')){
                         varPoint.splice(0,0,varConsts[0]);
                     }
                     else if (variablePrefix.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[')){
@@ -33,7 +37,18 @@ function activate(context) {
                 }
 
                 const currentline = document.lineAt(position).text;
-                var varCurrentline = currentline.match(new RegExp('(?<=\\[|,)[^,]+(?=,)','g'));
+                if (currentline.match('result.*:')){
+                    var varCurrentline = currentline.match(new RegExp('(?<=(:.*,)|:)[^,]+(?=,)','g'));
+                }
+                else if (currentline.match('initial|exlpore|hidden|movepoints|(result[^:]*)')){
+                    var varCurrentline = currentline.match(new RegExp('(?<==|,)[^,]+(?=,)','g'));
+                }
+                else if (currentline.match('named')){
+                    var varCurrentline = currentline.match(new RegExp('(?<==|,)[^,]+(?=\\.)','g'));
+                }
+                else {
+                    var varCurrentline = currentline.match(new RegExp('(?<=\\[|,)[^,]+(?=,)','g'));
+                }
                 if (!varCurrentline == []) {
                     if (currentline.match('ShiftSeg')&&varCurrentline.length==2){
                         varCurrentline.splice(1,1);
@@ -51,6 +66,9 @@ function activate(context) {
                         if (varPoint.indexOf(varCurrentline[i])>-1){
                             varPoint.splice(varPoint.indexOf(varCurrentline[i]),1);
                         }
+                        else if (varFreePt.indexOf(varCurrentline[i])>-1){
+                            varFreePt.splice(varFreePt.indexOf(varCurrentline[i]),1);
+                        }
                         else if (varLine.indexOf(varCurrentline[i])>-1){
                             varLine.splice(varLine.indexOf(varCurrentline[i]),1);
                         }
@@ -64,6 +82,11 @@ function activate(context) {
                 }
 
                 var varConstsList = Array();
+                if (arg==0) {
+                    for (var i=0;i<varFreePt.length;i++){
+                        varConstsList.splice(0,0,new vscode.CompletionItem(varFreePt[i], vscode.CompletionItemKind.Variable));
+                    }
+                }
                 if (arg==1) {
                     for (var i=0;i<varPoint.length;i++){
                         varConstsList.splice(0,0,new vscode.CompletionItem(varPoint[i], vscode.CompletionItemKind.Variable));
@@ -125,11 +148,16 @@ function activate(context) {
             }
             
             if (linePrefix.match('((Circle3|Compass|Circle|Line|Ray|Segment|ShiftSeg|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine|Midpoint)\\[$)|((Circle3|(?<==)Line|Ray|Segment|Midpoint|ABisect|PBisect|ShiftSeg|Compass|Circle|CopyAngle)\\[[^,]*,$)|((Circle3|ABisect|ShiftSeg|Compass|CopyAngle)\\[[^,]*,[^,]*,$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,[^,]*,$)|((FixAngle\\[)[^,]*,$)|(Intersect\\[[^,]*,[^,]*,[^,]*,$)')) {
-                return varlist(1);
+                var varlistsumpt=varlist(1).concat(varlist(0));
+                return varlistsumpt;
             }
-            else if (linePrefix.match('((Linepoint|PolarPoint)\\[$)|((Parallel|Perp)\\[[^,]*,$)')) {
-                var varlistsumls=varlist(2).concat(varlist(4))
+            else if (linePrefix.match('(PolarPoint\\[$)|((Parallel|Perp)\\[[^,]*,$)')) {
+                var varlistsumls=varlist(2).concat(varlist(4));
                 return varlistsumls;
+            }
+            else if (linePrefix.match('Linepoint\\[$')) {
+                var varlistsumlcs=varlist(2).concat(varlist(3)).concat(varlist(4));
+                return varlistsumlcs;
             }
             else if (linePrefix.match('(CenterPoint\\[$)|((PolarLine|PolarPoint)\\[[^,]*,$)|((Tangent\\[)[^,]*,$)')) {
                 return varlist(3);
@@ -146,17 +174,27 @@ function activate(context) {
                         new vscode.CompletionItem('1', vscode.CompletionItemKind.Constant),
                 ];
             }
-            return [new vscode.CompletionItem('initial', vscode.CompletionItemKind.Field),
-                    new vscode.CompletionItem('result', vscode.CompletionItemKind.Field),
-                    new vscode.CompletionItem('explore', vscode.CompletionItemKind.Field),
-                    new vscode.CompletionItem('rules', vscode.CompletionItemKind.Field),
-                    new vscode.CompletionItem('movepoints', vscode.CompletionItemKind.Field),
-                    new vscode.CompletionItem('hidden', vscode.CompletionItemKind.Field),
-                    new vscode.CompletionItem('named', vscode.CompletionItemKind.Field),
-            ];
+
+            var varlistsum = varlist(0).concat(varlist(1)).concat(varlist(2)).concat(varlist(3)).concat(varlist(4));
+            if (linePrefix.match('(((initial|explore|hidden|named)(=|(=.*,)))|(result(=|(.*,)|([^:]*:))))$')) {
+                return varlistsum;
+            }
+            else if (linePrefix.match('movepoints(=|(=.*,))$')) {
+                return varlist(0);
+            }
+            if (linePrefix.match('^(i|e|r|m|h|n)[^=]*$')) {
+                return [new vscode.CompletionItem('initial', vscode.CompletionItemKind.Property),
+                        new vscode.CompletionItem('result', vscode.CompletionItemKind.Property),
+                        new vscode.CompletionItem('explore', vscode.CompletionItemKind.Property),
+                        new vscode.CompletionItem('rules', vscode.CompletionItemKind.Property),
+                        new vscode.CompletionItem('movepoints', vscode.CompletionItemKind.Property),
+                        new vscode.CompletionItem('hidden', vscode.CompletionItemKind.Property),
+                        new vscode.CompletionItem('named', vscode.CompletionItemKind.Property),
+                ];
+            }
           }
         },
-        '[',',','=',''
+        '[',',','=','',':'
     );
       
     context.subscriptions.push(completion);

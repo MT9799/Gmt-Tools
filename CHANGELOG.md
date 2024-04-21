@@ -1,14 +1,22 @@
+## v0.4.2
+
+IntelliSence for level settings
+
 ## v0.4.1
+
+More accurate IntelliSence on variables
 
 Fixed bugs
 
 ## v0.4.0
 
-Add accurate completion on variable types
+'IntelliSence': Variables
 
 ## v0.3.0
 
 Supporting syntax highlighting styles under personalized settings
+
+Better textmate scopes
 
 ## v0.2.0
 
