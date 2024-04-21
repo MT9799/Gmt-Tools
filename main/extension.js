@@ -14,7 +14,7 @@ function activate(context) {
                 var varCircle = [];
                 var varSeg = [];
 
-                for (var i=0; i<document.lineCount-1; i++)
+                for (var i=0; i<position.line; i++)
                 { 
                     const variablePrefix = document.lineAt(i).text;
                     var varConsts = variablePrefix.match('^.*(?==)');
@@ -22,7 +22,7 @@ function activate(context) {
                     if (variablePrefix.match('=(Linepoint)?\\[')){
                         varFreePt.splice(0,0,varConsts[0]);
                     }
-                    else if (variablePrefix.match('=(Linepoint|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')){
+                    else if (variablePrefix.match('=(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')){
                         varPoint.splice(0,0,varConsts[0]);
                     }
                     else if (variablePrefix.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[')){
@@ -44,7 +44,7 @@ function activate(context) {
                     var varCurrentline = currentline.match(new RegExp('(?<==|,)[^,]+(?=,)','g'));
                 }
                 else if (currentline.match('named')){
-                    var varCurrentline = currentline.match(new RegExp('(?<==|,)[^,]+(?=\\.)','g'));
+                    var varCurrentline = currentline.match(new RegExp('((?<==|,)[^,]+(?=\\.))|((?<==|,)[^,]+(?=,))','g'));
                 }
                 else {
                     var varCurrentline = currentline.match(new RegExp('(?<=\\[|,)[^,]+(?=,)','g'));
@@ -87,7 +87,7 @@ function activate(context) {
                         varConstsList.splice(0,0,new vscode.CompletionItem(varFreePt[i], vscode.CompletionItemKind.Variable));
                     }
                 }
-                if (arg==1) {
+                else if (arg==1) {
                     for (var i=0;i<varPoint.length;i++){
                         varConstsList.splice(0,0,new vscode.CompletionItem(varPoint[i], vscode.CompletionItemKind.Variable));
                     }

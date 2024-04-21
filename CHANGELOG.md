@@ -1,3 +1,9 @@
+## v0.4.3
+
+Add light theme and file icons
+
+Fixed bugs
+
 ## v0.4.2
 
 IntelliSence for level settings
