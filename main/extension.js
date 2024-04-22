@@ -7,6 +7,14 @@ function activate(context) {
         {
           provideCompletionItems(document, position) {
 
+            function completionList(objects,kind){
+                var comp = [];
+                for (var i=0;i<objects.length;i++){
+                    comp.splice(0,0,new vscode.CompletionItem(objects[i], kind));
+                }
+                return comp;
+            }
+
             function varlist(arg){
                 var varFreePt = [];
                 var varPoint = [];
@@ -83,68 +91,41 @@ function activate(context) {
 
                 var varConstsList = Array();
                 if (arg==0) {
-                    for (var i=0;i<varFreePt.length;i++){
-                        varConstsList.splice(0,0,new vscode.CompletionItem(varFreePt[i], vscode.CompletionItemKind.Variable));
-                    }
+                    varConstsList=completionList(varFreePt,vscode.CompletionItemKind.Variable);
                 }
                 else if (arg==1) {
-                    for (var i=0;i<varPoint.length;i++){
-                        varConstsList.splice(0,0,new vscode.CompletionItem(varPoint[i], vscode.CompletionItemKind.Variable));
-                    }
+                    varConstsList=completionList(varPoint,vscode.CompletionItemKind.Variable);
                 }
                 else if (arg==2) {
-                    for (var i=0;i<varLine.length;i++){
-                        varConstsList.splice(0,0,new vscode.CompletionItem(varLine[i], vscode.CompletionItemKind.Variable));
-                    }
+                    varConstsList=completionList(varLine,vscode.CompletionItemKind.Variable);
                 }
                 else if (arg==3) {
-                    for (var i=0;i<varCircle.length;i++){
-                        varConstsList.splice(0,0,new vscode.CompletionItem(varCircle[i], vscode.CompletionItemKind.Variable));
-                    }
+                    varConstsList=completionList(varCircle,vscode.CompletionItemKind.Variable);
                 }
                 else if (arg==4) {
-                    for (var i=0;i<varSeg.length;i++){
-                        varConstsList.splice(0,0,new vscode.CompletionItem(varSeg[i], vscode.CompletionItemKind.Variable));
-                    }
+                    varConstsList=completionList(varSeg,vscode.CompletionItemKind.Variable);
                 }
                 return varConstsList;
             }
 
             const linePrefix = document.lineAt(position).text.substring(0, position.character);
-
+            const funcSeg = ['Segment','ShiftSeg'];
+            const funcLine = ['Line','Ray','Parallel','Perp','ABisect','PBisect','FixAngle','CopyAngle','Tangent','PolarLine'];
+            const funcCircle = ['Circle','Compass','Circle3'];
+            const funcPoint = ['Intersect','Linepoint','Midpoint','EdgePoint','CenterPoint','PolarPoint'];
+            const LevelSettings = ['initial','result','explore','rules','movepoints','hidden','named'];
                         
             if (linePrefix.match('^S[0-9]+=$')) {
-                return [new vscode.CompletionItem('Segment', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('ShiftSeg', vscode.CompletionItemKind.Function),
-                ];
+                return completionList(funcSeg,vscode.CompletionItemKind.Function);
             }
             else if (linePrefix.match('^s[0-9]+=$')) {
-                return [new vscode.CompletionItem('Line', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Ray', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Parallel', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Perp', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('ABisect', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('PBisect', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('FixAngle', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('CopyAngle', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Tangent', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('PolarLine', vscode.CompletionItemKind.Function),
-                ];
+                return completionList(funcLine,vscode.CompletionItemKind.Function);
             }
             else if (linePrefix.match('^c[0-9]+=$')) {
-                return [new vscode.CompletionItem('Circle', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Compass', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Circle3', vscode.CompletionItemKind.Function),
-                ];
+                return completionList(funcCircle,vscode.CompletionItemKind.Function);
             }
             else if (linePrefix.match('^(([A-RT-Z][0-9]*)|[A-Z])=$')) {
-                return [new vscode.CompletionItem('Intersect', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Linepoint', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('Midpoint', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('EdgePoint', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('CenterPoint', vscode.CompletionItemKind.Function),
-                        new vscode.CompletionItem('PolarPoint', vscode.CompletionItemKind.Function),
-                ];
+                return completionList(funcPoint,vscode.CompletionItemKind.Function);
             }
             
             if (linePrefix.match('((Circle3|Compass|Circle|Line|Ray|Segment|ShiftSeg|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine|Midpoint)\\[$)|((Circle3|(?<==)Line|Ray|Segment|Midpoint|ABisect|PBisect|ShiftSeg|Compass|Circle|CopyAngle)\\[[^,]*,$)|((Circle3|ABisect|ShiftSeg|Compass|CopyAngle)\\[[^,]*,[^,]*,$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,[^,]*,$)|((FixAngle\\[)[^,]*,$)|(Intersect\\[[^,]*,[^,]*,[^,]*,$)')) {
@@ -176,21 +157,18 @@ function activate(context) {
             }
 
             var varlistsum = varlist(0).concat(varlist(1)).concat(varlist(2)).concat(varlist(3)).concat(varlist(4));
-            if (linePrefix.match('(((initial|explore|hidden|named)(=|(=.*,)))|(result(=|(.*,)|([^:]*:))))$')) {
+            if (linePrefix.match('(((initial|explore|hidden|named)(=|(=.*,)))|(result(=|(.*,)|([^:]*:))))[A-Za-z]?$')) {
                 return varlistsum;
             }
             else if (linePrefix.match('movepoints(=|(=.*,))$')) {
                 return varlist(0);
             }
-            if (linePrefix.match('^(i|e|r|m|h|n)[^=]*$')) {
-                return [new vscode.CompletionItem('initial', vscode.CompletionItemKind.Property),
-                        new vscode.CompletionItem('result', vscode.CompletionItemKind.Property),
-                        new vscode.CompletionItem('explore', vscode.CompletionItemKind.Property),
-                        new vscode.CompletionItem('rules', vscode.CompletionItemKind.Property),
-                        new vscode.CompletionItem('movepoints', vscode.CompletionItemKind.Property),
-                        new vscode.CompletionItem('hidden', vscode.CompletionItemKind.Property),
-                        new vscode.CompletionItem('named', vscode.CompletionItemKind.Property),
-                ];
+            if (linePrefix.match('^[iermhnIERMHN][^=]*$')) {
+                return completionList(LevelSettings,vscode.CompletionItemKind.Property);
+            }
+            if (linePrefix.match('=[A-Za-z][^=:]*$')) {
+                const funcAll = funcSeg.concat(funcPoint).concat(funcLine).concat(funcCircle);
+                return completionList(funcAll,vscode.CompletionItemKind.Function);
             }
           }
         },
