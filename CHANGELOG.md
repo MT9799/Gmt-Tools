@@ -1,3 +1,7 @@
+## v0.4.4
+
+Add Outline
+
 ## v0.4.3
 
 Add light theme and file icons
