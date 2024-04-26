@@ -10,142 +10,142 @@
       "body": "Line[${1:Pt1},${2:Pt2}]",
       "description": "Draw a line through two points"
     },
-  "Ray": {
+    "Ray": {
       "prefix": "ray",
       "body": "Ray[${1:BgPt1},${2:Pt2}]",
       "description": "Draw a ray from the first point and through the second point"
     },
-  "Intersect": {
+    "Intersect": {
       "prefix": "intersect",
       "body": "Intersect[${1:Obj1},${2:Obj2},${3:0/1},-]",
       "description": "Draw a intersection of two objects"
     },
-  "Segment": {
+    "Segment": {
       "prefix": "segment",
       "body": "Segment[${1:Pt1},${2:Pt2}]",
       "description": "Draw a segment between two points"
     },
-  "Linepoint": {
+    "Linepoint": {
       "prefix": "linepoint",
-      "body": "Linepoint[${1:Ln},${2:Val}]",
-      "description": "Draw a point on the line"
+      "body": "Linepoint[${1:Obj},${2:Val}]",
+      "description": "Draw a point on the line or circle"
     },
-  "EdgePoint": {
+    "EdgePoint": {
       "prefix": "edgepoint",
       "body": "EdgePoint[${1:Ln},${2:0/1}]",
       "description": "Draw the infinite point of a line"
     },
-  "CenterPoint": {
+    "CenterPoint": {
       "prefix": "centerpoint",
-      "body": "CenterPoint[${1:obj}]",
+      "body": "CenterPoint[${1:Obj}]",
       "description": "Draw the center of a circle"
     },
-  "Midpoint": {
+    "Midpoint": {
       "prefix": "midpoint",
       "body": "Midpoint[${1:Pt1},${2:Pt2}]",
-      "description": "Draw the middle point of two pts"
+      "description": "Draw the middle point between two pts"
     },
-  "Perp": {
+    "Perp": {
       "prefix": "perp",
       "body": "Perp[${1:Pt},${2:Ln}]",
       "description": "Draw the perpendicular line through a point"
     },
-  "Parallel": {
+    "Parallel": {
       "prefix": "parallel",
       "body": "Parallel[${1:Pt},${2:Ln}]",
       "description": "Draw the parallel line through a point"
     },
-  "ABisect": {
+    "ABisect": {
       "prefix": "abisect",
       "body": "ABisect[${1:Pt1},${2:VPt2},${3:Pt3}]",
       "description": "Draw the angle bisect line by its vertex and two points on its side"
     },
-  "PBisect": {
+    "PBisect": {
       "prefix": "pbisect",
       "body": "PBisect[${1:Pt1},${2:Pt2}]",
       "description": "Draw the perpendicular bisect line between two points"
     },
-  "ShiftSeg": {
+    "ShiftSeg": {
       "prefix": "shiftseg",
       "body": "ShiftSeg[${1:Pt1},${2:Pt2},${3:TPt}]",
       "description": "Copy an equal parallel segment to a new point"
     },
-  "Compass": {
+    "Compass": {
       "prefix": "compass",
       "body": "Compass[${1:CtPt1},${2:RdPt2},${3:TPt3}]",
       "description": "Copy an equal circle to a new center"
     },
-  "Circle3": {
+    "Circle3": {
       "prefix": "circle3",
       "body": "Circle3[${1:Pt1},${2:Pt2},${3:Pt3}]",
       "description": "Draw the circumcircle of 3 points"
     },
-  "FixAngle": {
+    "FixAngle": {
       "prefix": "fixangle",
-      "body": "FixAngle[${1:VPt1},${2:Pt2},${3:Degree}]",
+      "body": "FixAngle[${1:VPt1},${2:Pt2},${3:Deg}]",
       "description": "Draw a fixed angle ray on a line"
     },
-  "CopyAngle": {
+    "CopyAngle": {
       "prefix": "copyangle",
       "body": "CopyAngle[${1:Pt1},${2:VPt2},${3:Pt3},${4:TPt4},${5:TVPt5}]",
       "description": "Copy an equal angle ray on a new line"
     },
-  "Tangent": {
+    "Tangent": {
       "prefix": "tangent",
       "body": "Tangent[${1:Pt},${2:Ccl},${3:0/1}]",
       "description": "Draw the tangent line of a circle from a point"
     },
-  "PolarLine": {
+    "PolarLine": {
       "prefix": "polarline",
       "body": "PolarLine[${1:Pt},${2:Ccl}]",
       "description": "Draw the polar line of a point about a circle"
     },
-  "PolarPoint": {
+    "PolarPoint": {
       "prefix": "polarpoint",
       "body": "PolarPoint[${1:Ln},${2:Ccl}]",
       "description": "Draw the polar point of a line about a circle"
     },
-  "PointA": {
+    "PointA": {
       "prefix": "A",
       "body": "A=[${1:PosX},${2:PosY}]",
       "description": "Draw the point A in canvas"
     },
-  "PointB": {
+    "PointB": {
       "prefix": "B",
       "body": "B=[${1:PosX},${2:PosY}]",
       "description": "Draw the point B in canvas"
     },
-  "PointC": {
+    "PointC": {
       "prefix": "C",
       "body": "C=[${1:PosX},${2:PosY}]",
       "description": "Draw the point C in canvas"
     },
-  "Initial": {
+    "Initial": {
       "prefix": "initial",
       "body": "initial=${1:Obj}",
       "description": "initial conditions"
     },
-  "Named": {
+    "Named": {
       "prefix": "named",
       "body": "named=${1:Obj}.${2:Name}",
       "description": "initial named objects"
     },
-  "Movepoints": {
+    "Movepoints": {
       "prefix": "movepoints",
       "body": "movepoints=${1:Pt}",
       "description": "initial movable hidden points"
     },
-  "Result": {
+    "Result": {
       "prefix": "result",
       "body": "result=${1:Obj}:${2:Disp}",
       "description": "objects sought and display"
     },
-  "Explore": {
+    "Explore": {
       "prefix": "exlpore",
       "body": "explore=${1:Obj}",
       "description": "results in exploring mode"
     },
-  "Rules": {
+    "Rules": {
       "prefix": "rules",
       "body": "rules=${1:Rule}",
       "description": "force rules in this level(#,/,<,>)"

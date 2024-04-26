@@ -1,3 +1,12 @@
+## v0.5.0
+
+Feat
+
+* Signature help
+* Docs overview in completion list
+
+Fixed bugs
+
 ## v0.4.4
 
 Add Outline

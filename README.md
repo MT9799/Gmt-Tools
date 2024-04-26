@@ -38,6 +38,20 @@ Variables (more accurate)
 
 ---
 
+**Outline:**
+
+List all symbols and level-settings
+
+![1714157357247](image/README/outline.png)
+
+---
+
+**More practical helpers:**
+
+Including help window in functions' completion and variables' completion
+
+![1714157548348](image/README/signaturehelp.png)
+
 ## Usage
 
 0. Visual Studio Code (with Nodejs) ; Git
