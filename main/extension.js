@@ -22,7 +22,7 @@ function activate(context) {
                     const line = document.lineAt(i);
                     const tokens = line.text.split("=");
 
-                    if (line.text.match(new RegExp('^.*(?==(Linepoint)?\\[)'))) {
+                    if (line.text.match(new RegExp('^.+(?==(Linepoint)?\\[)'))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -41,7 +41,7 @@ function activate(context) {
                         nodes[varfreeptset-1].push(marker_symbol);
                     }
 
-                    else if (line.text.match(new RegExp('^.*(?==(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[)'))) {
+                    else if (line.text.match(new RegExp('^.+(?==(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[)'))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -60,7 +60,7 @@ function activate(context) {
                         nodes[varptset-1].push(marker_symbol);
                     }
 
-                    else if (line.text.match(new RegExp('^.*(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[)'))) {
+                    else if (line.text.match(new RegExp('^.+(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[)'))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -79,7 +79,7 @@ function activate(context) {
                         nodes[varlineset-1].push(marker_symbol);
                     }
 
-                    else if (line.text.match(new RegExp('^.*(?==(Circle3|Compass|Circle)\\[)'))) {
+                    else if (line.text.match(new RegExp('^.+(?==(Circle3|Compass|Circle)\\[)'))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -98,7 +98,7 @@ function activate(context) {
                         nodes[varcircleset-1].push(marker_symbol);
                     }
 
-                    else if (line.text.match(new RegExp('^.*(?==(Segment|ShiftSeg)\\[)'))) {
+                    else if (line.text.match(new RegExp('^.+(?==(Segment|ShiftSeg)\\[)'))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -117,7 +117,7 @@ function activate(context) {
                         nodes[varsegset-1].push(marker_symbol);
                     }
 
-                    else if (line.text.match(new RegExp('(?<=(initial|named|movepoints|hidden|result|explore|rules)=.*)',))) {
+                    else if (line.text.match(new RegExp('^(initial|named|movepoints|hidden|result|explore|rules)=.*',))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -145,6 +145,12 @@ function activate(context) {
     );
 
     const refDoc = [
+
+        ['Point',
+         '[XPos(Num), YPos(Num)]: Free_point',
+         'Construct a free point in coordinate system.',
+        ['(Point)\nThe X-axis coordinate.\nTowards the right side of the screen',
+         '(Point)\nThe Y-axis coordinate.\nTowards the bottom of the screen.']],
 
         ['Intersect',
          'Intersect[Object1(Ln/Ccl), Object2(Ln/Ccl), Param(0/1), <Exception(Pt)>]: Point',
@@ -185,7 +191,7 @@ function activate(context) {
          '(Number)\nThe position of the point.\nWhen Ln: the distance of two defined points is \'1\',as order.\nWhen Ccl: starting from the difined point, and the length of one circle is \'pi\', clockwise.']],
 
         ['EdgePoint',
-         'EdgePoint[Line(Ln), Param(0/1)]: (Point?)',
+         'EdgePoint[Line(Ln), Param(0/1)]: (Point)',
          'Construct an infinite point of a line.',
         ['(Line)\nThe given line.',
          '(0/1)\nOne of the edges.\nAccording to the defined order of the Line.']],
@@ -284,27 +290,31 @@ function activate(context) {
 
         ['initial',
          'initial=...Obj',
-         'Initial conditions.'],
+         '(Required)\nInitial conditions, displayed as black solid lines in the beginning.'],
 
         ['named',
          'named=...Obj.Name',
-         'Initial named objects.'],
+         '(Optional)\nInitial named objects.\n\'Name\' can only accept one letter, or it will sort in A-Z order.\nNote: The objects here don\'t need to be redefined in \'initial\'.'],
 
         ['movepoints',
          'movepoints=...FreePts',
-         'Initial movable points(always hidden except in dragging mode).'],
+         '(Optional)\nInitial movable (free) points.\nAlways hidden except in dragging mode.\nNote: Free points in \'initial\' don\'t need to be redefined here.'],
+
+        ['hidden',
+         'hidden=...Obj',
+         '(Optional)\nHidden objects.\nAlways hidden except in dragging mode.\nNote: It\'s better to define free points in \'movepoints\'.'],
 
         ['result',
-         'result=...Obj:Obj_displayed',
-         'Objects sought and display.\nOften more than one.'],
+         'result=...Obj<:...Obj_displayed>',
+         '(Required)\nObjects sought and displayed(optional) as result, separated by a colon.\nOften more than one result, wrap and write others.\nNotes: A line is more suitable as a result than a segment, even if the display is segment; if the result is just a part of the configeration, it\'s better to display the whole.'],
 
         ['explore',
          'explore=...Obj',
-         'Results in exploring mode.'],
+         '(Required)\nResults displayed in exploring mode.'],
 
         ['rules',
          'rules=...Obj?Obj',
-         'Force rules in this level. \'?\' means:\n# - Objects have to intersect.\n/ - Objects can not intersect.\n<(>) - Comparison of values.\n| - OR-condition.']
+         '(Optional)\nForce rules in this level, displayed as red dashed lines while moving. Operators:\n\'#\' - Objects must intersect.\n\'/\' - Objects can\'t intersect.\n\'<\',\'>\' - Numerical comparison.\n\'.\' - Connector. Example: \'A.B.C\': The size of angle ABC; \'A.B\': The length of segment AB.\n\'|\' - OR-condition.\nNotes: It shouldn\'t be written when the solutions are naturally non-exist. It should be written when the solutions 1)can be better constructed in special cases; 2)can\'t be constructed in the same method in all cases; 3)are lost(but not 0) in some cases.']
         
     ];
 
@@ -329,41 +339,78 @@ function activate(context) {
                     return paramLength[num];
                 }
 
+                function atLvlSet(str){
+                    let EquSym = str.indexOf('=');
+                    let paramLength = [EquSym+1,str.length];
+                    return paramLength;
+                }
+
                 const linePrefix = document.lineAt(position).text.substring(0, position.character);
                 var symbolResult = new vscode.SignatureHelp();
 
                 if (linePrefix.match('=.*\\[[^\\]]*')){
 
                     let getFunc = linePrefix.match('(?<==).*(?=\\[)')[0];
-                    for (let i=0; i<refDoc.length; i++){
-                        if (refDoc[i][0] == getFunc){
-                            if (linePrefix.match(',')){
-                                var commas = linePrefix.match(RegExp(',','g')).length;
+                    if (!getFunc){
+                        var docNum = 0;
+                    }
+                    else {
+                        for (let i=0; i<refDoc.length; i++){
+                            if (refDoc[i][0] == getFunc){
+                                var docNum = i;
                             }
-                            else {var commas = 0;}
-                            
-                            var signatures = new vscode.SignatureInformation;
-                            signatures.label = refDoc[i][1];
-                            signatures.documentation = refDoc[i][2];
-
-                            const paramLocation = atParam(refDoc[i][1],commas);
-                            if (paramLocation){
-                                signatures.parameters = [new vscode.ParameterInformation(paramLocation,refDoc[i][3][commas])];
-                            }
-
-                            symbolResult.signatures = [signatures];
-                            symbolResult.activeParameter = 0;
-                            symbolResult.activeSignature = 0;
                         }
                     }
+                          
+                    if (linePrefix.match(',')){
+                        var commas = linePrefix.match(RegExp(',','g')).length;
+                    }
+                    else {var commas = 0;}
+                    
+                    var signatures = new vscode.SignatureInformation();
+                    signatures.label = refDoc[docNum][1];
+                    signatures.documentation = refDoc[docNum][2];
+
+                    const paramLocation = atParam(refDoc[docNum][1],commas);
+                    if (paramLocation){
+                        signatures.parameters = [new vscode.ParameterInformation(paramLocation,refDoc[docNum][3][commas])];
+                    }
+
+                    symbolResult.signatures = [signatures];
+                    symbolResult.activeParameter = 0;
+                    symbolResult.activeSignature = 0;
                 }
+                else if (linePrefix.match('^(initial|named|movepoints|hidden|result|explore|rules)=.*')){
+
+                    let getFunc = linePrefix.match('^.*(?==)')[0];
+
+                    for (let i=0; i<refDoc.length; i++){
+                        if (refDoc[i][0] == getFunc){
+                            var docNum = i;
+                        }
+                    }
+                    
+                    var signatures = new vscode.SignatureInformation();
+                    signatures.label = refDoc[docNum][1];
+                    signatures.documentation = refDoc[docNum][2];
+
+                    const paramLocation = atLvlSet(refDoc[docNum][1]);
+                    if (paramLocation){
+                        signatures.parameters = [new vscode.ParameterInformation(paramLocation)];
+                    }
+
+                    symbolResult.signatures = [signatures];
+                    symbolResult.activeParameter = 0;
+                    symbolResult.activeSignature = 0;
+                }
+
                 if (symbolResult){
                     resolve(symbolResult);
                 }
             });
           }
         },
-        '[',','
+        '[',',','='
     );
 
     const completion = vscode.languages.registerCompletionItemProvider(
@@ -375,7 +422,7 @@ function activate(context) {
                 var comp = [];
                 for (let i=0; i<objects.length; i++){
                     var compItem = new vscode.CompletionItem();
-                    compItem.label = objects[i][0];
+                    compItem.label = {label: objects[i][0], description: objects[i][2]};
                     compItem.detail = objects[i][1];
                     compItem.documentation = objects[i][2];
                     compItem.kind = kind;

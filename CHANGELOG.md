@@ -1,3 +1,9 @@
+## v0.5.1
+
+Completed Signature help function
+
+Fixed bugs on outline reading
+
 ## v0.5.0
 
 Feat
@@ -9,11 +15,11 @@ Fixed bugs
 
 ## v0.4.4
 
-Add Outline
+Added Outline
 
 ## v0.4.3
 
-Add light theme and file icons
+Added light theme and file icons
 
 Fixed bugs
 
@@ -39,7 +45,7 @@ Better textmate scopes
 
 ## v0.2.0
 
-Add basic snippets
+Added basic snippets
 
 ## v0.1.0
 
