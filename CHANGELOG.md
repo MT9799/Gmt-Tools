@@ -1,3 +1,9 @@
+## v0.5.2
+
+Fixed bugs
+
+Revised some definitions in refdoc
+
 ## v0.5.1
 
 Completed Signature help function

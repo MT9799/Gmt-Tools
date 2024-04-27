@@ -147,21 +147,21 @@ function activate(context) {
     const refDoc = [
 
         ['Point',
-         '[XPos(Num), YPos(Num)]: Free_point',
+         '[CoorX(Num), CoorY(Num)]: Point_free',
          'Construct a free point in coordinate system.',
-        ['(Point)\nThe X-axis coordinate.\nTowards the right side of the screen',
+        ['(Point)\nThe X-axis coordinate.\nTowards the right side of the screen.',
          '(Point)\nThe Y-axis coordinate.\nTowards the bottom of the screen.']],
 
         ['Intersect',
-         'Intersect[Object1(Ln/Ccl), Object2(Ln/Ccl), Param(0/1), <Exception(Pt)>]: Point',
+         'Intersect[Object1(Ln/Ccl), Object2(Ln/Ccl), Param(0/1), <Exception(Pt)>]: Point_fixed',
          'Construct an intersection of two objects.',
         ['(Line/Segment/Circle)\nThe first object.',
          '(Line/Segment/Circle)\nThe second object.',
-         '(0/1)\nOne of the intersections.\nWhen Ln,Ln: 0\nWhen Ln,Ccl: According to the points\' order of the line\nWhen Ccl,Ccl: According to the centers\' order defined in this func',
-         '<Optional>(Point)\nExclude the given position.\nGenerally supply a defined intersection to return the other one.']],
+         '(0/1)\nOne of the intersections.\nWhen Ln,Ln: 0;\nWhen Ln,Ccl: According to the defined direction of the line;\nWhen Ccl,Ccl: According to the centers\' order defined in this func.',
+         '<Optional>(Point)\nExclude the given position.\nGenerally supply a defined intersection to always return the other one.']],
         
         ['Line',
-         'Line[Point1(Pt), Point2(Pt)]: Line',
+         'Line[Point1(Pt), Point2(Pt)]: Line_straight',
          'Construct a line through two points.',
         ['(Point)\nThe first point.',
          '(Point)\nThe second point.']],
@@ -173,10 +173,10 @@ function activate(context) {
          '(Point)\nThe point on this circle.']],
 
         ['Ray',
-         'Ray[Start_point(Pt), Point_on_ray(Pt)]: Ray',
+         'Ray[Point_starting(Pt), Point_passing(Pt)]: Ray',
          'Construct a ray from a point and through another point.',
         ['(Point)\nThe start point.',
-         '(Point)\nThe end point.']],
+         '(Point)\nThe point passed through.']],
 
         ['Segment',
          'Segment[Endpoint1(Pt), Endpoint2(Pt)]: Segment',
@@ -185,62 +185,62 @@ function activate(context) {
          '(Point)\nThe second endpoint.']],
 
         ['Linepoint',
-         'Linepoint[Object(Ln/Ccl), Position(Num)]: Free_point',
+         'Linepoint[Object(Ln/Ccl), Position(Num)]: Point_free',
          'Construct a free point on the object.',
         ['(Line/Segment/Circle)\nThe given object.',
-         '(Number)\nThe position of the point.\nWhen Ln: the distance of two defined points is \'1\',as order.\nWhen Ccl: starting from the difined point, and the length of one circle is \'pi\', clockwise.']],
+         '(Number)\nThe position of the point.\nWhen Ln/Seg: the distance of two defined points is \'1\',as order;\nWhen Ccl: starting from the difined point, and the length of one circle is \'pi\', clockwise.']],
 
         ['EdgePoint',
-         'EdgePoint[Line(Ln), Param(0/1)]: (Point)',
+         'EdgePoint[Line(Ln), Param(0/1)]: Point_imaginary',
          'Construct an infinite point of a line.',
         ['(Line)\nThe given line.',
-         '(0/1)\nOne of the edges.\nAccording to the defined order of the Line.']],
+         '(0/1)\nOne of the edges.\nAccording to the defined direction of the line.']],
 
         ['CenterPoint',
-         'CenterPoint[Object(Ccl)]: Point',
+         'CenterPoint[Circle(Ccl)]: Point_fixed',
          'Construct the center point of a circle.',
         ['(Circle)\nThe given circle.']],
 
         ['Midpoint',
-         'Midpoint[Point1(Pt), Point2(Pt)]: Point',
+         'Midpoint[Point1(Pt), Point2(Pt)]: Point_fixed',
          'Construct the middle point between two points.',
         ['(Point)\nThe first point.',
          '(Point)\nThe second point.']],
 
         ['Perp',
-         'Perp[Point(Pt), Line(Ln)]: Line',
-         'Construct the perpendicular line through a point.',
+         'Perp[Point(Pt), Line(Ln)]: Line_straight',
+         'Construct the perpendicular line of a line through a point.',
         ['(Point)\nThe point on the perpendicular line.',
-         '(Line/Segment)\nThe line which is perpendicular to it.']],
+         '(Line/Segment)\nThe original line.']],
 
         ['Parallel',
-         'Parallel[Point(Pt), Line(Ln)]: Line',
-         'Construct the parallel line through a point.',
+         'Parallel[Point(Pt), Line(Ln)]: Line_straight',
+         'Construct the parallel line of a line through a point.',
         ['(Point)\nThe point on the parallel line.',
-         '(Line/Segment)\nThe line which is parallel to it.']],
+         '(Line/Segment)\nThe original line.']],
 
         ['ABisect',
-         'ABisect[Point1(Pt), Vertex(Pt), Point3(Pt)]: Line',
-         'Construct the angle bisect line by its vertex and two points on its side.',
-        ['(Point)\nThe first point on one side.',
-         '(Point)\nThe second point as the vertex.',
-         '(Point)\nThe third point on the other side.']],
+         'ABisect[Point_side1(Pt), Vertex(Pt), Point_side2(Pt)]: Line_straight',
+         'Construct the bisect line of an angle by its vertex and two points on its side.',
+        ['(Point)\nThe point on one side.',
+         '(Point)\nThe point as the vertex.',
+         '(Point)\nThe point on the other side.']],
 
         ['PBisect',
-         'PBisect[Point1(Pt), Point2(Pt)]: Line',
+         'PBisect[Point1(Pt), Point2(Pt)]: Line_straight',
          'Construct the perpendicular bisect line between two points.',
         ['(Point)\nThe first point.',
          '(Point)\nThe second point.']],
 
         ['ShiftSeg',
-         'ShiftSeg[Endpoint1(Pt), Endpoint2(Pt), Target_point(Pt)]: Segment',
+         'ShiftSeg[Endpoint1(Pt), Endpoint2(Pt), Endpoint_new(Pt)]: Segment',
          'Copy an equal parallel segment(or a length) to a new point.',
         ['(Point)\nThe first endpoint of the initial segment.',
          '(Point)\nThe second endpoint of the initial segment.',
-         '(Point)\nThe third point determined the new segment.']],
+         '(Point)\nThe point determined the new segment.']],
 
         ['Compass',
-         'Compass[Center(Pt), Radius(Pt), Target_center(Pt)]: Circle',
+         'Compass[Center(Pt), Radius(Pt), Center_new(Pt)]: Circle',
          'Copy an equal circle to a new center.',
         ['(Point)\nThe center point of the initial circle.',
          '(Point)\nThe point on the initial circle.',
@@ -248,21 +248,21 @@ function activate(context) {
 
         ['Circle3',
          'Circle3[Point1(Pt), Point2(Pt), Point3(Pt)]: Circle',
-         'Construct the circumcircle of 3 points.',
+         'Construct a circumcircle by 3 points.',
         ['(Point)\nThe first point on the circle.',
          '(Point)\nThe second point on the circle.',
          '(Point)\nThe third point on the circle.']],
 
         ['FixAngle',
          'FixAngle[Vertex(Pt), Direction(Pt), Degree(Num)]: Ray',
-         'Construct a fixed angle ray on the ray by 2 points.',
+         'Construct a fixed angle ray on a side by 2 points.',
         ['(Point)\nThe vertex of the fixed angle.',
-         '(Point)\nThe point as the direction of the first side of the fixed angle.',
-         '(Point)\nThe degree of the fixed angle turning anticlockwise.']],
+         '(Point)\nThe point on the first side as the direction.',
+         '(Point)\nThe degree of the fixed angle, turning anticlockwise.']],
 
         ['CopyAngle',
-         'CopyAngle[Point1(Pt), Vertex(Pt), Point3(Pt), Target_point(Pt), Target_vertex(Pt)]: Ray',
-         'Copy an equal angle ray to 2 new points.',
+         'CopyAngle[Point_side1(Pt), Vertex(Pt), Point_side2(Pt), Point_side_new(Pt), Vertex_new(Pt)]: Ray',
+         'Copy an equal angle ray to a new side by 2 points.',
         ['(Point)\nThe point on one side of the initial angle.',
          '(Point)\nThe vertex of the initial angle.',
          '(Point)\nThe point on the other side of the initial angle.',
@@ -270,20 +270,20 @@ function activate(context) {
          '(Point)\nThe vertex of the new angle.']],
 
         ['Tangent',
-         'Tangent[Point(Pt), Circle(Ccl), Param(0/1)]: Line',
+         'Tangent[Point(Pt), Circle(Ccl), Param(0/1)]: Line_straight',
          'Construct the tangent line of a circle from a point.',
-        ['(Point)\nThe point through which the tangent line passes.',
+        ['(Point)\nThe point on the tangent line.',
          '(Circle)\nThe circle tangent to the line.',
-         '(0/1)\nOne of the tangent lines.']],
+         '(0/1)\nOne of the tangent lines.\nAccording to the defined order.']],
 
         ['PolarLine',
-         'PolarLine[Point(Pt), Circle(Ccl)]: Line',
+         'PolarLine[Point(Pt), Circle(Ccl)]: Line_straight',
          'Construct the polar line of a point about a circle.',
-        ['(Point)\nThe given line.',
+        ['(Point)\nThe given point.',
          '(Circle)\nThe given circle.']],
 
         ['PolarPoint',
-         'PolarPoint[Line(Ln), Circle(Ccl)]: Point',
+         'PolarPoint[Line(Ln), Circle(Ccl)]: Point_fixed',
          'Construct the polar point of a line about a circle.',
         ['(Line)\nThe given line.',
          '(Circle)\nThe given circle.']],
@@ -348,7 +348,7 @@ function activate(context) {
                 const linePrefix = document.lineAt(position).text.substring(0, position.character);
                 var symbolResult = new vscode.SignatureHelp();
 
-                if (linePrefix.match('=.*\\[[^\\]]*')){
+                if (linePrefix.match('=.*\\[[^\\]=]*$')){
 
                     let getFunc = linePrefix.match('(?<==).*(?=\\[)')[0];
                     if (!getFunc){
@@ -563,29 +563,25 @@ function activate(context) {
                 return completionList(getRef(funcPoint),vscode.CompletionItemKind.Function);
             }
             
-            if (linePrefix.match('((Circle3|Compass|Circle|Line|Ray|Segment|ShiftSeg|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine|Midpoint)\\[$)|((Circle3|(?<==)Line|Ray|Segment|Midpoint|ABisect|PBisect|ShiftSeg|Compass|Circle|CopyAngle)\\[[^,]*,$)|((Circle3|ABisect|ShiftSeg|Compass|CopyAngle)\\[[^,]*,[^,]*,$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,[^,]*,$)|((FixAngle\\[)[^,]*,$)|(Intersect\\[[^,]*,[^,]*,[^,]*,$)')) {
+            if (linePrefix.match('((Circle3|Compass|Circle|Line|Ray|Segment|ShiftSeg|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine|Midpoint)\\[[^,\\]=]*$)|((Circle3|(?<==)Line|Ray|Segment|Midpoint|ABisect|PBisect|ShiftSeg|Compass|Circle|CopyAngle)\\[[^,]*,[^,\\]=]*$)|((Circle3|ABisect|ShiftSeg|Compass|CopyAngle)\\[[^,]*,[^,]*,[^,\\]=]*$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,[^,\\]=]*$)|(CopyAngle\\[[^,]*,[^,]*,[^,]*,[^,]*,[^,\\]=]*$)|((FixAngle\\[)[^,]*,[^,\\]=]*$)|(Intersect\\[[^,]*,[^,]*,[^,]*,[^,\\]=]*$)')) {
                 var varlistsumpt=varList(1).concat(varList(0));
                 return varlistsumpt;
             }
-            else if (linePrefix.match('(PolarPoint\\[$)|((Parallel|Perp)\\[[^,]*,$)')) {
+            else if (linePrefix.match('(PolarPoint\\[[^,\\]=]*$)|((Parallel|Perp)\\[[^,]*,[^,\\]=]*$)')) {
                 var varlistsumls=varList(2).concat(varList(4));
                 return varlistsumls;
             }
-            else if (linePrefix.match('Linepoint\\[$')) {
+            else if (linePrefix.match('(Linepoint\\[[^,\\]=]*$)|(Intersect\\[[^,\\]=]*$)|((Intersect\\[)[^,]*,[^,\\]=]*$)')) {
                 var varlistsumlcs=varList(2).concat(varList(3)).concat(varList(4));
                 return varlistsumlcs;
             }
-            else if (linePrefix.match('(CenterPoint\\[$)|((PolarLine|PolarPoint)\\[[^,]*,$)|((Tangent\\[)[^,]*,$)')) {
+            else if (linePrefix.match('(CenterPoint\\[[^,\\]=]*$)|((PolarLine|PolarPoint)\\[[^,]*,[^,\\]=]*$)|((Tangent\\[)[^,]*,[^,\\]=]*$)')) {
                 return varList(3);
             }
-            else if (linePrefix.match('(Intersect\\[$)|((Intersect\\[)[^,]*,$)')) {
-                var varlistsumlc=varList(2).concat(varList(3));
-                return varlistsumlc;
-            }
-            else if (linePrefix.match('EdgePoint\\[$')) {
+            else if (linePrefix.match('EdgePoint\\[[^,\\]=]*$')) {
                 return varList(2);
             }
-            else if (linePrefix.match('(((EdgePoint|Tangent)\\[)[^,]*,$)|((Intersect\\[)[^,]*,[^,]*,$)')) {
+            else if (linePrefix.match('((Tangent\\[)[^,]*,[^,]*,[^,\\]=]*$)|((EdgePoint\\[)[^,]*,[^,\\]=]*$)|((Intersect\\[)[^,]*,[^,]*,[^,\\]=]*$)')) {
                 return [new vscode.CompletionItem('0', vscode.CompletionItemKind.Constant),
                         new vscode.CompletionItem('1', vscode.CompletionItemKind.Constant),
                 ];
@@ -598,10 +594,10 @@ function activate(context) {
             else if (linePrefix.match('movepoints(=|(=.*,))$')) {
                 return varList(0);
             }
-            if (linePrefix.match('^[iermhnIERMHN][^=]*$')) {
+            else if (linePrefix.match('^[iermhnIERMHN][^=]*$')) {
                 return completionList(getRef(LevelSettings),vscode.CompletionItemKind.Property);
             }
-            if (linePrefix.match('=[A-Za-z][^=:\\[]*$')) {
+            else if (linePrefix.match('(?<!(initial|explore|hidden|named|result|movepoints|rules))=[A-Za-z][^=,:\\[]*$')) {
                 const funcAll = funcSeg.concat(funcPoint).concat(funcLine).concat(funcCircle);
                 return completionList(getRef(funcAll),vscode.CompletionItemKind.Function);
             }
