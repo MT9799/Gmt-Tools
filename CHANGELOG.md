@@ -1,3 +1,16 @@
+## v0.6.0
+
+Feat
+
+* Hovering for words
+* Var info display in completion
+* New highlighting color for hovering info
+
+Fix
+
+* Def of naming rules
+* Others
+
 ## v0.5.2
 
 Fixed bugs

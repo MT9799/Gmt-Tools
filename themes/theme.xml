@@ -19,6 +19,19 @@
 		</dict>
 		<dict>
 			<key>name</key>
+			<string>keywords</string>
+			<key>scope</key>
+			<string>keyword</string>
+			<key>settings</key>
+			<dict>
+				<key>fontStyle</key>
+				<string>italic</string>
+				<key>foreground</key>
+				<string>#77ddbb</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
 			<string>operators</string>
 			<key>scope</key>
 			<string>operator</string>
@@ -79,7 +92,7 @@
 				<key>fontStyle</key>
 				<string></string>
 				<key>foreground</key>
-				<string>#cccccc</string>
+				<string>#eeeeee</string>
 			</dict>
 		</dict>
 		<dict>

@@ -294,7 +294,7 @@ function activate(context) {
 
         ['named',
          'named=...Obj.Name',
-         '(Optional)\nInitial named objects.\n\'Name\' can only accept one letter, or it will sort in A-Z order.\nNote: The objects here don\'t need to be redefined in \'initial\'.'],
+         '(Optional)\nInitial named objects.\n\'Name\' can accept only one character(A-Z,a-z,0-9) and can\'t allow the same names, or it will sort in A-Z(a-z) order.\nNote: The objects here don\'t need to be redefined in \'initial\'.'],
 
         ['movepoints',
          'movepoints=...FreePts',
@@ -445,11 +445,11 @@ function activate(context) {
                         varFreePtIndex.splice(0,0,varConsts[0]);
                     }
                     else if (variablePrefix.match('=(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')){
-                        varPoint.splice(0,0,[varConsts[0],variablePrefix.split('=')[1],'A point.']);
+                        varPoint.splice(0,0,[varConsts[0],variablePrefix.split('=')[1],'A fixed point.']);
                         varPointIndex.splice(0,0,varConsts[0]);
                     }
                     else if (variablePrefix.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[')){
-                        varLine.splice(0,0,[varConsts[0],variablePrefix.split('=')[1],'A line.']);
+                        varLine.splice(0,0,[varConsts[0],variablePrefix.split('=')[1],'A straight line.']);
                         varLineIndex.splice(0,0,varConsts[0]);
                     }
                     else if (variablePrefix.match('=(Circle3|Compass|Circle)\\[')){
@@ -462,52 +462,52 @@ function activate(context) {
                     }
                 }
 
-                const currentline = document.lineAt(position).text;
-                if (currentline.match('result.*:')){
-                    var varCurrentline = currentline.match(new RegExp('(?<=(:.*,)|:)[^,]+(?=,)','g'));
+                const currentLine = document.lineAt(position).text;
+                if (currentLine.match('result.*:')){
+                    var varCurrentLine = currentLine.match(new RegExp('(?<=(:.*,)|:)[^,]+(?=,)','g'));
                 }
-                else if (currentline.match('initial|exlpore|hidden|movepoints|(result[^:]*)')){
-                    var varCurrentline = currentline.match(new RegExp('(?<==|,)[^,]+(?=,)','g'));
+                else if (currentLine.match('initial|exlpore|hidden|movepoints|(result[^:]*)')){
+                    var varCurrentLine = currentLine.match(new RegExp('(?<==|,)[^,]+(?=,)','g'));
                 }
-                else if (currentline.match('named')){
-                    var varCurrentline = currentline.match(new RegExp('((?<==|,)[^,]+(?=\\.))|((?<==|,)[^,]+(?=,))','g'));
+                else if (currentLine.match('named')){
+                    var varCurrentLine = currentLine.match(new RegExp('((?<==|,)[^,]+(?=\\.))|((?<==|,)[^,]+(?=,))','g'));
                 }
                 else {
-                    var varCurrentline = currentline.match(new RegExp('(?<=\\[|,)[^,]+(?=,)','g'));
+                    var varCurrentLine = currentLine.match(new RegExp('(?<=\\[|,)[^,]+(?=,)','g'));
                 }
-                if (!varCurrentline == []) {
-                    if (currentline.match('ShiftSeg')&&varCurrentline.length==2){
-                        varCurrentline.splice(1,1);
+                if (!varCurrentLine == []) {
+                    if (currentLine.match('ShiftSeg')&&varCurrentLine.length==2){
+                        varCurrentLine.splice(1,1);
                     }
-                    else if (currentline.match('CopyAngle')&&varCurrentline.length==4&&varCurrentline[0]==varCurrentline[3]){
-                        varCurrentline.splice(2,1);
+                    else if (currentLine.match('CopyAngle')&&varCurrentLine.length==4&&varCurrentLine[0]==varCurrentLine[3]){
+                        varCurrentLine.splice(2,1);
                     }
-                    else if (currentline.match('CopyAngle')&&varCurrentline.length==4&&varCurrentline[2]==varCurrentline[3]){
-                        varCurrentline.splice(0,1);
+                    else if (currentLine.match('CopyAngle')&&varCurrentLine.length==4&&varCurrentLine[2]==varCurrentLine[3]){
+                        varCurrentLine.splice(0,1);
                     }
-                    else if (currentline.match('CopyAngle')&&varCurrentline.length>=3){
-                        varCurrentline.splice(0,3);
+                    else if (currentLine.match('CopyAngle')&&varCurrentLine.length>=3){
+                        varCurrentLine.splice(0,3);
                     }
-                    for (var i=0;i<varCurrentline.length;i++){
-                        if (varPointIndex.indexOf(varCurrentline[i])>-1){
-                            varPoint.splice(varPoint.indexOf(varCurrentline[i]),1);
-                            varPointIndex.splice(varPoint.indexOf(varCurrentline[i]),1);
+                    for (var i=0;i<varCurrentLine.length;i++){
+                        if (varPointIndex.indexOf(varCurrentLine[i])>-1){
+                            varPoint.splice(varPoint.indexOf(varCurrentLine[i]),1);
+                            varPointIndex.splice(varPoint.indexOf(varCurrentLine[i]),1);
                         }
-                        else if (varFreePtIndex.indexOf(varCurrentline[i])>-1){
-                            varFreePt.splice(varFreePt.indexOf(varCurrentline[i]),1);
-                            varFreePtIndex.splice(varPoint.indexOf(varCurrentline[i]),1);
+                        else if (varFreePtIndex.indexOf(varCurrentLine[i])>-1){
+                            varFreePt.splice(varFreePt.indexOf(varCurrentLine[i]),1);
+                            varFreePtIndex.splice(varPoint.indexOf(varCurrentLine[i]),1);
                         }
-                        else if (varLineIndex.indexOf(varCurrentline[i])>-1){
-                            varLine.splice(varLine.indexOf(varCurrentline[i]),1);
-                            varLineIndex.splice(varPoint.indexOf(varCurrentline[i]),1);
+                        else if (varLineIndex.indexOf(varCurrentLine[i])>-1){
+                            varLine.splice(varLine.indexOf(varCurrentLine[i]),1);
+                            varLineIndex.splice(varPoint.indexOf(varCurrentLine[i]),1);
                         }
-                        else if (varCircleIndex.indexOf(varCurrentline[i])>-1){
-                            varCircle.splice(varCircle.indexOf(varCurrentline[i]),1);
-                            varCircleIndex.splice(varPoint.indexOf(varCurrentline[i]),1);
+                        else if (varCircleIndex.indexOf(varCurrentLine[i])>-1){
+                            varCircle.splice(varCircle.indexOf(varCurrentLine[i]),1);
+                            varCircleIndex.splice(varPoint.indexOf(varCurrentLine[i]),1);
                         }
-                        else if (varSegIndex.indexOf(varCurrentline[i])>-1){
-                            varSeg.splice(varSeg.indexOf(varCurrentline[i]),1);
-                            varSegIndex.splice(varPoint.indexOf(varCurrentline[i]),1);
+                        else if (varSegIndex.indexOf(varCurrentLine[i])>-1){
+                            varSeg.splice(varSeg.indexOf(varCurrentLine[i]),1);
+                            varSegIndex.splice(varPoint.indexOf(varCurrentLine[i]),1);
                         }
                     }
                 }
@@ -597,7 +597,7 @@ function activate(context) {
             else if (linePrefix.match('^[iermhnIERMHN][^=]*$')) {
                 return completionList(getRef(LevelSettings),vscode.CompletionItemKind.Property);
             }
-            else if (linePrefix.match('(?<!(initial|explore|hidden|named|result|movepoints|rules))=[A-Za-z][^=,:\\[]*$')) {
+            else if (linePrefix.match('(?<!(initial|explore|hidden|named|result|movepoints|rules))=[A-Za-z]?[^=,:\\[]*$')) {
                 const funcAll = funcSeg.concat(funcPoint).concat(funcLine).concat(funcCircle);
                 return completionList(getRef(funcAll),vscode.CompletionItemKind.Function);
             }
@@ -606,9 +606,80 @@ function activate(context) {
         '[',',','=','',':'
     );
 
+    const hover = vscode.languages.registerHoverProvider(
+        'gmt',{
+          provideHover(document,position){
+            
+            const wordCurrent = document.getText(document.getWordRangeAtPosition(position));
+
+            for (let i=0; i<refDoc.length; i++){
+                if (wordCurrent == refDoc[i][0]){
+                    let MdHover = new vscode.MarkdownString();
+                    MdHover.appendCodeblock(refDoc[i][1],'gmt');
+                    var refHover = [MdHover,refDoc[i][2]];
+                }
+            }
+
+            if (refHover){
+                return new vscode.Hover(refHover);
+            }
+            else{
+                var varRefList = [];
+                for (let i=0; i<document.lineCount; i++)
+                { 
+                    var varS = document.lineAt(i).text;
+                    let varConsts = varS.match('^.*(?==)');
+
+                    if (varS.match('=(Linepoint)?\\[')){
+                        varRefList.push([varConsts[0],varS.split('=')[1],'A free point.']);
+                    }
+                    else if (varS.match('=(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')){
+                        varRefList.push([varConsts[0],varS.split('=')[1],'A fixed point.']);
+                    }
+                    else if (varS.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[')){
+                        varRefList.push([varConsts[0],varS.split('=')[1],'A straight line.']);
+                    }
+                    else if (varS.match('=(Circle3|Compass|Circle)\\[')){
+                        varRefList.push([varConsts[0],varS.split('=')[1],'A circle.']);
+                    }
+                    else if (varS.match('=(Segment|ShiftSeg)\\[')){
+                        varRefList.push([varConsts[0],varS.split('=')[1],'A segment.']);
+                    }
+                }
+                
+                const ifNamed = document.lineAt(position.line).text;
+                var namesPos = [];
+                if (ifNamed.match('named=')){
+                    var namedList = ifNamed.split('');
+                    for (let i=0; i<namedList.length; i++){
+                        if (namedList[i] == '.'){
+                            namesPos.push(i+1);
+                        }
+                    }
+                }
+
+                if (namesPos.indexOf(position.character) == -1 | namesPos == []){
+                    for (let i=0; i<varRefList.length; i++){
+                        if (wordCurrent == varRefList[i][0]){
+                            let MdHover = new vscode.MarkdownString();
+                            MdHover.appendCodeblock(varRefList[i][0]+': '+varRefList[i][1],'gmt');
+                            var varHover = [MdHover,varRefList[i][2]];
+                        }
+                    }
+                }
+
+                if (varHover){
+                    return new vscode.Hover(varHover);
+                }
+            }
+          }
+        }
+    );
+
     context.subscriptions.push(completion);
     context.subscriptions.push(outline);
     context.subscriptions.push(signhelp);
+    context.subscriptions.push(hover);
 
 }
 

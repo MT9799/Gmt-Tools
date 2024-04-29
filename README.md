@@ -52,6 +52,20 @@ Including help window in functions' completion and variables' completion
 
 ![1714157548348](image/README/signaturehelp.png)
 
+---
+
+**Hovering:**
+
+Support hovering windows to variables and functions
+
+Hover the cursor over the words to show
+
+![1714387000151](image/README/hover1.png)![1714387006746](image/README/hover2.png)
+
+---
+
+
+
 ## Usage
 
 0. Visual Studio Code (with Nodejs) ; Git

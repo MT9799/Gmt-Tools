@@ -5,6 +5,9 @@
       "include": "#comments"
     },
     {
+      "include": "#keywords"
+    },
+    {
       "include": "#functions"
     },
     {
@@ -27,6 +30,18 @@
           "name": "comment",
           "match": "^#.*$"
         }]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword",
+          "match": "((CoorX|CoorY|Position|Degree)(?=\\(Num\\)))|(Object[^,]*(?=\\(Ln/Ccl\\)))|(Param(?=\\(0/1\\)))|((Exception|Point[^,]*|Endpoint[^,]*|Center[^,]*|Radius|Vertex[^,]*|Direction)(?=\\(Pt\\)))|(Line(?=\\(Ln\\)))|(Circle(?=\\(Ccl\\)))|((?<=\\]: )(Point[^\\[,]*|Line[^\\[,]*|Ray|Circle|Segment)$)|((?<==)\\.\\.\\.(Obj\\?Obj|Obj<:\\.\\.\\.Obj_displayed>|Obj|FreePts))"
+        },
+        {
+          "name": "constant.value",
+          "match": "(?<=\\()Num(?=[\\)/])"
+        }
+      ]
     },
     "operators": {
       "patterns": [
@@ -55,24 +70,25 @@
       "patterns": [
         {
           "name": "variable.named",
-          "match": "(?<=named.+\\.)[A-Za-z]"
+          "match": "(?<=named.+\\.)(Name|[A-Za-z0-9])"
         },
         {
           "name": "variable.line",
-          "match": "[Ss][0-9]+"
+          "match": "((?<=\\()Ln(?=[\\)/]))|([Ss][0-9]+)|(^.*(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine|Segment|ShiftSeg)\\[))"
         },
         {
           "name": "variable.circle",
-          "match": "([c][0-9]+)"
+          "match": "((?<=[\\(/])Ccl(?=\\)))|([c][0-9]+)|(^.*(?==(Circle3|Compass|Circle)\\[))"
+        },
+        {
+          "name": "variable.point",
+          "match": "((?<=\\()Pt(?=\\)))|([A-RT-Z][0-9]*)|[A-Z]|(^.*(?==(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint|Linepoint)?\\[))"
         },
         {
           "name": "variable.other",
           "match": "([A-Za-z][A-Za-z]+[0-9]*)|[a-z]"
-        },
-        {
-          "name": "variable.point",
-          "match": "([A-RT-Z][0-9]*)|[A-Z]"
-        }]
+        }
+]
     },
     "punctuations": {
       "patterns": [
@@ -90,7 +106,7 @@
       "patterns": [
         {
           "name": "constant.argument",
-          "match": "((?<=EdgePoint\\[[^,]*,)(0|1))|((?<=(Intersect|Tangent)\\[[^,]*,[^,]*,)(0|1))"
+          "match": "((?<=[\\(/])[01](?=[\\)/]))|((?<=EdgePoint\\[[^,]*,)(0|1))|((?<=(Intersect|Tangent)\\[[^,]*,[^,]*,)(0|1))"
         },
         {
           "name": "constant.value",
