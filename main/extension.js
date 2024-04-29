@@ -149,172 +149,172 @@ function activate(context) {
         ['Point',
          '[CoorX(Num), CoorY(Num)]: Point_free',
          'Construct a free point in coordinate system.',
-        ['(Point)\nThe X-axis coordinate.\nTowards the right side of the screen.',
-         '(Point)\nThe Y-axis coordinate.\nTowards the bottom of the screen.']],
+        ['(Point)\n\nThe X-axis coordinate.\n\nTowards the right side of the screen.',
+         '(Point)\n\nThe Y-axis coordinate.\n\nTowards the bottom of the screen.']],
 
         ['Intersect',
          'Intersect[Object1(Ln/Ccl), Object2(Ln/Ccl), Param(0/1), <Exception(Pt)>]: Point_fixed',
          'Construct an intersection of two objects.',
-        ['(Line/Segment/Circle)\nThe first object.',
-         '(Line/Segment/Circle)\nThe second object.',
-         '(0/1)\nOne of the intersections.\nWhen Ln,Ln: 0;\nWhen Ln,Ccl: According to the defined direction of the line;\nWhen Ccl,Ccl: According to the centers\' order defined in this func.',
-         '<Optional>(Point)\nExclude the given position.\nGenerally supply a defined intersection to always return the other one.']],
+        ['(Line/Segment/Circle)\n\nThe first object.',
+         '(Line/Segment/Circle)\n\nThe second object.',
+         '(0/1)\n\nOne of the intersections.\n* When Ln,Ln: 0;\n* When Ln,Ccl: According to the defined direction of the line;\n* When Ccl,Ccl: According to the centers\' order defined in this func.',
+         '<Optional>(Point)\n\nExclude the given position.\n\nGenerally supply a defined intersection to always return the other one.']],
         
         ['Line',
          'Line[Point1(Pt), Point2(Pt)]: Line_straight',
          'Construct a line through two points.',
-        ['(Point)\nThe first point.',
-         '(Point)\nThe second point.']],
+        ['(Point)\n\nThe first point.',
+         '(Point)\n\nThe second point.']],
 
         ['Circle',
          'Circle[Center(Pt), Radius(Pt)]: Circle',
          'Construct a circle by its center and a point on it.',
-        ['(Point)\nThe center point.',
-         '(Point)\nThe point on this circle.']],
+        ['(Point)\n\nThe center point.',
+         '(Point)\n\nThe point on this circle.']],
 
         ['Ray',
          'Ray[Point_starting(Pt), Point_passing(Pt)]: Ray',
          'Construct a ray from a point and through another point.',
-        ['(Point)\nThe start point.',
-         '(Point)\nThe point passed through.']],
+        ['(Point)\n\nThe start point.',
+         '(Point)\n\nThe point passed through.']],
 
         ['Segment',
          'Segment[Endpoint1(Pt), Endpoint2(Pt)]: Segment',
          'Construct a segment between two points.',
-        ['(Point)\nThe first endpoint.',
-         '(Point)\nThe second endpoint.']],
+        ['(Point)\n\nThe first endpoint.',
+         '(Point)\n\nThe second endpoint.']],
 
         ['Linepoint',
          'Linepoint[Object(Ln/Ccl), Position(Num)]: Point_free',
          'Construct a free point on the object.',
-        ['(Line/Segment/Circle)\nThe given object.',
-         '(Number)\nThe position of the point.\nWhen Ln/Seg: the distance of two defined points is \'1\',as order;\nWhen Ccl: starting from the difined point, and the length of one circle is \'pi\', clockwise.']],
+        ['(Line/Segment/Circle)\n\nThe given object.',
+         '(Number)\n\nThe position of the point.\n* When Ln/Seg: the distance of two defined points is \'1\',as order;\n* When Ccl: starting from the difined point, and the length of one circle is \'pi\', clockwise.']],
 
         ['EdgePoint',
          'EdgePoint[Line(Ln), Param(0/1)]: Point_imaginary',
          'Construct an infinite point of a line.',
-        ['(Line)\nThe given line.',
-         '(0/1)\nOne of the edges.\nAccording to the defined direction of the line.']],
+        ['(Line)\n\nThe given line.',
+         '(0/1)\n\nOne of the edges.\n\nAccording to the defined direction of the line.']],
 
         ['CenterPoint',
          'CenterPoint[Circle(Ccl)]: Point_fixed',
          'Construct the center point of a circle.',
-        ['(Circle)\nThe given circle.']],
+        ['(Circle)\n\nThe given circle.']],
 
         ['Midpoint',
          'Midpoint[Point1(Pt), Point2(Pt)]: Point_fixed',
          'Construct the middle point between two points.',
-        ['(Point)\nThe first point.',
-         '(Point)\nThe second point.']],
+        ['(Point)\n\nThe first point.',
+         '(Point)\n\nThe second point.']],
 
         ['Perp',
          'Perp[Point(Pt), Line(Ln)]: Line_straight',
          'Construct the perpendicular line of a line through a point.',
-        ['(Point)\nThe point on the perpendicular line.',
-         '(Line/Segment)\nThe original line.']],
+        ['(Point)\n\nThe point on the perpendicular line.',
+         '(Line/Segment)\n\nThe original line.']],
 
         ['Parallel',
          'Parallel[Point(Pt), Line(Ln)]: Line_straight',
          'Construct the parallel line of a line through a point.',
-        ['(Point)\nThe point on the parallel line.',
-         '(Line/Segment)\nThe original line.']],
+        ['(Point)\n\nThe point on the parallel line.',
+         '(Line/Segment)\n\nThe original line.']],
 
         ['ABisect',
          'ABisect[Point_side1(Pt), Vertex(Pt), Point_side2(Pt)]: Line_straight',
          'Construct the bisect line of an angle by its vertex and two points on its side.',
-        ['(Point)\nThe point on one side.',
-         '(Point)\nThe point as the vertex.',
-         '(Point)\nThe point on the other side.']],
+        ['(Point)\n\nThe point on one side.',
+         '(Point)\n\nThe point as the vertex.',
+         '(Point)\n\nThe point on the other side.']],
 
         ['PBisect',
          'PBisect[Point1(Pt), Point2(Pt)]: Line_straight',
          'Construct the perpendicular bisect line between two points.',
-        ['(Point)\nThe first point.',
-         '(Point)\nThe second point.']],
+        ['(Point)\n\nThe first point.',
+         '(Point)\n\nThe second point.']],
 
         ['ShiftSeg',
          'ShiftSeg[Endpoint1(Pt), Endpoint2(Pt), Endpoint_new(Pt)]: Segment',
          'Copy an equal parallel segment(or a length) to a new point.',
-        ['(Point)\nThe first endpoint of the initial segment.',
-         '(Point)\nThe second endpoint of the initial segment.',
-         '(Point)\nThe point determined the new segment.']],
+        ['(Point)\n\nThe first endpoint of the initial segment.',
+         '(Point)\n\nThe second endpoint of the initial segment.',
+         '(Point)\n\nThe point determined the new segment.']],
 
         ['Compass',
          'Compass[Center(Pt), Radius(Pt), Center_new(Pt)]: Circle',
          'Copy an equal circle to a new center.',
-        ['(Point)\nThe center point of the initial circle.',
-         '(Point)\nThe point on the initial circle.',
-         '(Point)\nThe point determined the center of the new circle.']],
+        ['(Point)\n\nThe center point of the initial circle.',
+         '(Point)\n\nThe point on the initial circle.',
+         '(Point)\n\nThe point determined the center of the new circle.']],
 
         ['Circle3',
          'Circle3[Point1(Pt), Point2(Pt), Point3(Pt)]: Circle',
          'Construct a circumcircle by 3 points.',
-        ['(Point)\nThe first point on the circle.',
-         '(Point)\nThe second point on the circle.',
-         '(Point)\nThe third point on the circle.']],
+        ['(Point)\n\nThe first point on the circle.',
+         '(Point)\n\nThe second point on the circle.',
+         '(Point)\n\nThe third point on the circle.']],
 
         ['FixAngle',
          'FixAngle[Vertex(Pt), Direction(Pt), Degree(Num)]: Ray',
          'Construct a fixed angle ray on a side by 2 points.',
-        ['(Point)\nThe vertex of the fixed angle.',
-         '(Point)\nThe point on the first side as the direction.',
-         '(Point)\nThe degree of the fixed angle, turning anticlockwise.']],
+        ['(Point)\n\nThe vertex of the fixed angle.',
+         '(Point)\n\nThe point on the first side as the direction.',
+         '(Point)\n\nThe degree of the fixed angle, turning anticlockwise.']],
 
         ['CopyAngle',
          'CopyAngle[Point_side1(Pt), Vertex(Pt), Point_side2(Pt), Point_side_new(Pt), Vertex_new(Pt)]: Ray',
          'Copy an equal angle ray to a new side by 2 points.',
-        ['(Point)\nThe point on one side of the initial angle.',
-         '(Point)\nThe vertex of the initial angle.',
-         '(Point)\nThe point on the other side of the initial angle.',
-         '(Point)\nThe point determined a side of the new angle.',
-         '(Point)\nThe vertex of the new angle.']],
+        ['(Point)\n\nThe point on one side of the initial angle.',
+         '(Point)\n\nThe vertex of the initial angle.',
+         '(Point)\n\nThe point on the other side of the initial angle.',
+         '(Point)\n\nThe point determined a side of the new angle.',
+         '(Point)\n\nThe vertex of the new angle.']],
 
         ['Tangent',
          'Tangent[Point(Pt), Circle(Ccl), Param(0/1)]: Line_straight',
          'Construct the tangent line of a circle from a point.',
-        ['(Point)\nThe point on the tangent line.',
-         '(Circle)\nThe circle tangent to the line.',
-         '(0/1)\nOne of the tangent lines.\nAccording to the defined order.']],
+        ['(Point)\n\nThe point on the tangent line.',
+         '(Circle)\n\nThe circle tangent to the line.',
+         '(0/1)\n\nOne of the tangent lines.\n\nAccording to the defined order.']],
 
         ['PolarLine',
          'PolarLine[Point(Pt), Circle(Ccl)]: Line_straight',
          'Construct the polar line of a point about a circle.',
-        ['(Point)\nThe given point.',
-         '(Circle)\nThe given circle.']],
+        ['(Point)\n\nThe given point.',
+         '(Circle)\n\nThe given circle.']],
 
         ['PolarPoint',
          'PolarPoint[Line(Ln), Circle(Ccl)]: Point_fixed',
          'Construct the polar point of a line about a circle.',
-        ['(Line)\nThe given line.',
-         '(Circle)\nThe given circle.']],
+        ['(Line)\n\nThe given line.',
+         '(Circle)\n\nThe given circle.']],
 
         ['initial',
          'initial=...Obj',
-         '(Required)\nInitial conditions, displayed as black solid lines in the beginning.'],
+         '(Required)\n\nInitial conditions, displayed as black solid lines in the beginning.'],
 
         ['named',
          'named=...Obj.Name',
-         '(Optional)\nInitial named objects.\n\'Name\' can accept only one character(A-Z,a-z,0-9) and can\'t allow the same names, or it will sort in A-Z(a-z) order.\nNote: The objects here don\'t need to be redefined in \'initial\'.'],
+         '(Another form of \'initial\')\n\nInitial named objects.\n\n\'Name\' can accept only one character(A-Z,a-z,0-9) and can\'t allow the same names, or it will sort in A-Z(a-z) order.\n\nNote: The objects here don\'t need to be redefined in \'initial\'.'],
 
         ['movepoints',
          'movepoints=...FreePts',
-         '(Optional)\nInitial movable (free) points.\nAlways hidden except in dragging mode.\nNote: Free points in \'initial\' don\'t need to be redefined here.'],
+         '(Optional)\n\nInitial movable (free) points.\n\nAlways hidden except in dragging mode.\n\nNote: Free points in \'initial\' don\'t need to be redefined here.'],
 
         ['hidden',
          'hidden=...Obj',
-         '(Optional)\nHidden objects.\nAlways hidden except in dragging mode.\nNote: It\'s better to define free points in \'movepoints\'.'],
+         '(Optional)\n\nHidden objects.\n\nAlways hidden except in dragging mode.\n\nNote: It\'s better to define free points in \'movepoints\'.'],
 
         ['result',
          'result=...Obj<:...Obj_displayed>',
-         '(Required)\nObjects sought and displayed(optional) as result, separated by a colon.\nOften more than one result, wrap and write others.\nNotes: A line is more suitable as a result than a segment, even if the display is segment; if the result is just a part of the configeration, it\'s better to display the whole.'],
+         '(Required)\n\nObjects sought and displayed(optional) as result, separated by a colon.\n\nOften more than one result, wrap and write others.\n\nNotes: A line is more suitable as a result than a segment, even if the display is segment; if the result is just a part of the configeration, it\'s better to display the whole.'],
 
         ['explore',
          'explore=...Obj',
-         '(Required)\nResults displayed in exploring mode.'],
+         '(Required)\n\nResults displayed in exploring mode.'],
 
         ['rules',
          'rules=...Obj?Obj',
-         '(Optional)\nForce rules in this level, displayed as red dashed lines while moving. Operators:\n\'#\' - Objects must intersect.\n\'/\' - Objects can\'t intersect.\n\'<\',\'>\' - Numerical comparison.\n\'.\' - Connector. Example: \'A.B.C\': The size of angle ABC; \'A.B\': The length of segment AB.\n\'|\' - OR-condition.\nNotes: It shouldn\'t be written when the solutions are naturally non-exist. It should be written when the solutions 1)can be better constructed in special cases; 2)can\'t be constructed in the same method in all cases; 3)are lost(but not 0) in some cases.']
+         '(Optional)\n\nForce rules in this level, displayed as red dashed lines while moving. Operators:\n* \'#\' - Objects must intersect.\n* \'/\' - Objects can\'t intersect.\n* \'<\',\'>\' - Numerical comparison.\n* \'.\' - Connector. Example: \'A.B.C\': The size of angle ABC; \'A.B\': The length of segment AB.\n* \'|\' - OR-condition.\n\nNotes: It shouldn\'t be written when the solutions are naturally non-exist. It should be written when the solutions: \n* 1)can be better constructed in special cases;\n* 2)can\'t be constructed in the same method in all cases;\n* 3)are lost(but not 0) in some cases.']
         
     ];
 
@@ -369,11 +369,11 @@ function activate(context) {
                     
                     var signatures = new vscode.SignatureInformation();
                     signatures.label = refDoc[docNum][1];
-                    signatures.documentation = refDoc[docNum][2];
+                    signatures.documentation = new vscode.MarkdownString(refDoc[docNum][2]);
 
                     const paramLocation = atParam(refDoc[docNum][1],commas);
                     if (paramLocation){
-                        signatures.parameters = [new vscode.ParameterInformation(paramLocation,refDoc[docNum][3][commas])];
+                        signatures.parameters = [new vscode.ParameterInformation(paramLocation,new vscode.MarkdownString(refDoc[docNum][3][commas]))];
                     }
 
                     symbolResult.signatures = [signatures];
@@ -392,7 +392,7 @@ function activate(context) {
                     
                     var signatures = new vscode.SignatureInformation();
                     signatures.label = refDoc[docNum][1];
-                    signatures.documentation = refDoc[docNum][2];
+                    signatures.documentation = new vscode.MarkdownString(refDoc[docNum][2]);
 
                     const paramLocation = atLvlSet(refDoc[docNum][1]);
                     if (paramLocation){
@@ -424,7 +424,7 @@ function activate(context) {
                     var compItem = new vscode.CompletionItem();
                     compItem.label = {label: objects[i][0], description: objects[i][2]};
                     compItem.detail = objects[i][1];
-                    compItem.documentation = objects[i][2];
+                    compItem.documentation = new vscode.MarkdownString(objects[i][2]);
                     compItem.kind = kind;
                     comp.splice(0,0,compItem);
                 }
