@@ -1,3 +1,9 @@
+## v0.6.1
+
+Feat
+
+* Renaming (F2)
+
 ## v0.6.0
 
 Feat

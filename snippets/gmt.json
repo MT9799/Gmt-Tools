@@ -1,107 +1,107 @@
 {
   ".source.gmt": {
     "Circle": {
-      "prefix": "circle",
+      "prefix": "Circle",
       "body": "Circle[${1:CtPt1},${2:RdPt2}]",
       "description": "Construct a circle by its center and a point on it"
     },
     "Line": {
-      "prefix": "line",
+      "prefix": "Line",
       "body": "Line[${1:Pt1},${2:Pt2}]",
       "description": "Construct a line through two points"
     },
     "Ray": {
-      "prefix": "ray",
+      "prefix": "Ray",
       "body": "Ray[${1:BgPt1},${2:Pt2}]",
       "description": "Construct a ray from the first point and through the second point"
     },
     "Intersect": {
-      "prefix": "intersect",
+      "prefix": "Intersect",
       "body": "Intersect[${1:Obj1},${2:Obj2},${3:0/1},-]",
       "description": "Construct an intersection of two objects"
     },
     "Segment": {
-      "prefix": "segment",
+      "prefix": "Segment",
       "body": "Segment[${1:Pt1},${2:Pt2}]",
       "description": "Construct a segment between two points"
     },
     "Linepoint": {
-      "prefix": "linepoint",
+      "prefix": "Linepoint",
       "body": "Linepoint[${1:Obj},${2:Val}]",
       "description": "Construct a point on the line or circle"
     },
     "EdgePoint": {
-      "prefix": "edgepoint",
+      "prefix": "EdgePoint",
       "body": "EdgePoint[${1:Ln},${2:0/1}]",
       "description": "Construct an infinite point of a line"
     },
     "CenterPoint": {
-      "prefix": "centerpoint",
+      "prefix": "CenterPoint",
       "body": "CenterPoint[${1:Ccl}]",
       "description": "Construct the center of a circle"
     },
     "Midpoint": {
-      "prefix": "midpoint",
+      "prefix": "Midpoint",
       "body": "Midpoint[${1:Pt1},${2:Pt2}]",
       "description": "Construct the middle point between two points"
     },
     "Perp": {
-      "prefix": "perp",
+      "prefix": "Perp",
       "body": "Perp[${1:Pt},${2:Ln}]",
       "description": "Construct the perpendicular line through a point"
     },
     "Parallel": {
-      "prefix": "parallel",
+      "prefix": "Parallel",
       "body": "Parallel[${1:Pt},${2:Ln}]",
       "description": "Construct the parallel line through a point"
     },
     "ABisect": {
-      "prefix": "abisect",
+      "prefix": "ABisect",
       "body": "ABisect[${1:Pt1},${2:VPt2},${3:Pt3}]",
       "description": "Construct the angle bisect line by its vertex and two points on its side"
     },
     "PBisect": {
-      "prefix": "pbisect",
+      "prefix": "PBisect",
       "body": "PBisect[${1:Pt1},${2:Pt2}]",
       "description": "Construct the perpendicular bisect line between two points"
     },
     "ShiftSeg": {
-      "prefix": "shiftseg",
+      "prefix": "ShiftSeg",
       "body": "ShiftSeg[${1:Pt1},${2:Pt2},${3:TPt}]",
       "description": "Copy an equal parallel segment to a new point"
     },
     "Compass": {
-      "prefix": "compass",
+      "prefix": "Compass",
       "body": "Compass[${1:CtPt1},${2:RdPt2},${3:TPt3}]",
       "description": "Copy an equal circle to a new center"
     },
     "Circle3": {
-      "prefix": "circle3",
+      "prefix": "Circle3",
       "body": "Circle3[${1:Pt1},${2:Pt2},${3:Pt3}]",
       "description": "Construct the circumcircle of 3 points"
     },
     "FixAngle": {
-      "prefix": "fixangle",
+      "prefix": "FixAngle",
       "body": "FixAngle[${1:VPt1},${2:Pt2},${3:Deg}]",
       "description": "Construct a fixed angle ray on a line"
     },
     "CopyAngle": {
-      "prefix": "copyangle",
+      "prefix": "CopyAngle",
       "body": "CopyAngle[${1:Pt1},${2:VPt2},${3:Pt3},${4:TPt4},${5:TVPt5}]",
       "description": "Copy an equal angle ray on a new line"
     },
     "Tangent": {
-      "prefix": "tangent",
+      "prefix": "Tangent",
       "body": "Tangent[${1:Pt},${2:Ccl},${3:0/1}]",
       "description": "Construct a tangent line about a circle from a point"
     },
     "PolarLine": {
-      "prefix": "polarline",
+      "prefix": "PolarLine",
       "body": "PolarLine[${1:Pt},${2:Ccl}]",
       "description": "Construct the polar line of a point about a circle"
     },
     "PolarPoint": {
-      "prefix": "polarpoint",
+      "prefix": "PolarPoint",
       "body": "PolarPoint[${1:Ln},${2:Ccl}]",
       "description": "Construct the polar point of a line about a circle"
     },

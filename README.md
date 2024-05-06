@@ -64,7 +64,13 @@ Hover the cursor over the words to show
 
 ---
 
+**Renaming:**
 
+Select a renamable symbol and press F2 to rename
+
+Automatically distinguish between variable and display names(in 'named')
+
+![1715011653615](image/README/rename.png)
 
 ## Usage
 

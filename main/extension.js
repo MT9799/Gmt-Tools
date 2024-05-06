@@ -314,7 +314,7 @@ function activate(context) {
 
         ['rules',
          'rules=...Obj?Obj',
-         '(Optional)\n\nForce rules in this level, displayed as red dashed lines while moving. Operators:\n* \'#\' - Objects must intersect.\n* \'/\' - Objects can\'t intersect.\n* \'<\',\'>\' - Numerical comparison.\n* \'.\' - Connector. Example: \'A.B.C\': The size of angle ABC; \'A.B\': The length of segment AB.\n* \'|\' - OR-condition.\n\nNotes: It shouldn\'t be written when the solutions are naturally non-exist. It should be written when the solutions: \n* 1)can be better constructed in special cases;\n* 2)can\'t be constructed in the same method in all cases;\n* 3)are lost(but not 0) in some cases.']
+         '(Optional)\n\nForce rules in this level, displayed as red dashed lines while moving. Operators \'?\':\n* \'#\' - Objects must intersect.\n* \'/\' - Objects can\'t intersect.\n* \'<\',\'>\' - Numerical comparison.\n* \'.\' - Connector. Example: \'A.B.C\': The size of angle ABC; \'A.B\': The length of segment AB.\n* \'|\' - OR-condition.\n\nNotes: It shouldn\'t be written when the solutions are naturally non-exist. It should be written when the solutions: \n* 1)can be better constructed in special cases;\n* 2)can\'t be constructed in the same method in all cases;\n* 3)are lost(but not 0) in some cases.']
         
     ];
 
@@ -650,7 +650,7 @@ function activate(context) {
                 const ifNamed = document.lineAt(position.line).text;
                 var namesPos = [];
                 if (ifNamed.match('named=')){
-                    var namedList = ifNamed.split('');
+                    let namedList = ifNamed.split('');
                     for (let i=0; i<namedList.length; i++){
                         if (namedList[i] == '.'){
                             namesPos.push(i+1);
@@ -676,10 +676,89 @@ function activate(context) {
         }
     );
 
+    const rename = vscode.languages.registerRenameProvider(
+        'gmt',
+        {
+          provideRenameEdits(document,position,newName){
+
+            const rangeCurrent = document.getWordRangeAtPosition(position);
+            const wordCurrent = document.getText(rangeCurrent);
+            const lineCurrent = document.lineAt(position).text;
+            if (wordCurrent.match('^(Linepoint|Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint|Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine|Circle3|Compass|Circle|Segment|ShiftSeg|initial|explore|hidden|named|result|movepoints|rules|(-?[0-9]+\\.?[0-9]*))$')){
+                throw new Error('Can\'t rename this symbol.');
+            }
+            if (lineCurrent.match('^#')){
+                throw new Error('Can\'t rename comments.');
+            }
+            var ranges = [];
+            var namesRange = [];
+
+            for (let i=0; i<document.lineCount; i++){
+                let lineCrt = document.lineAt(i).text;
+                if (lineCrt.match('named=')){
+                    let namedList = lineCrt.split('');
+                    for (let j=0; j<namedList.length; j++){
+                        if (namedList[j] == '.'){
+                            namesRange.push(document.getWordRangeAtPosition(position.with(i,j+1)));
+                        }
+                    }
+                }
+            }
+            
+            let isInNamed = false;
+            for (let i=0; i<namesRange.length; i++){
+                if (namesRange[i].isEqual(rangeCurrent)){
+                    isInNamed = true;
+                }
+            }
+            
+            if (!isInNamed){
+                for (let i=0; i<document.lineCount; i++){
+                    const lineCurrent = document.lineAt(i).text;
+                    for (let j=0; j<lineCurrent.length; j++){
+                        let rangeGet = document.getWordRangeAtPosition(position.with(i,j));
+                        let wordGet = document.getText(rangeGet);
+                        if (wordCurrent == wordGet){
+                            let isInRange = false;
+                            for (let k=0; k<ranges.length; k++){
+                                if (ranges[k].isEqual(rangeGet)){
+                                    isInRange = true;
+                                }
+                            }
+                            if (namesRange){
+                                for (let k=0; k<namesRange.length; k++){
+                                    if (namesRange[k].isEqual(rangeGet)){
+                                        isInRange = true;
+                                    }
+                                }
+                            }
+                            if (!isInRange){
+                                ranges.push(rangeGet);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                ranges.push(rangeCurrent);
+            }
+            
+            const fUri = vscode.Uri.parse(document.uri);
+            var edits = new vscode.WorkspaceEdit();
+            for (let i=0; i<ranges.length; i++){
+                edits.replace(fUri,ranges[i],newName);
+            }
+
+            return edits;
+          }
+        }
+    );
+
     context.subscriptions.push(completion);
     context.subscriptions.push(outline);
     context.subscriptions.push(signhelp);
     context.subscriptions.push(hover);
+    context.subscriptions.push(rename);
 
 }
 
