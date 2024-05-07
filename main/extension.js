@@ -60,7 +60,7 @@ function activate(context) {
                         nodes[varptset-1].push(marker_symbol);
                     }
 
-                    else if (line.text.match(new RegExp('^.+(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[)'))) {
+                    else if (line.text.match(new RegExp('^.+(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine)\\[)'))) {
 
                         const marker_symbol = new vscode.DocumentSymbol(
                             tokens[0],tokens[1],
@@ -135,7 +135,7 @@ function activate(context) {
                             vscode.SymbolKind.String,
                             line.range, line.range);
 
-                        nodes[nodes.length-1].push(cmd_symbol);
+                        nodes[0].push(cmd_symbol);
                     }
                 }
                 resolve(symbolsArr);
@@ -448,7 +448,7 @@ function activate(context) {
                         varPoint.splice(0,0,[varConsts[0],variablePrefix.split('=')[1],'A fixed point.']);
                         varPointIndex.splice(0,0,varConsts[0]);
                     }
-                    else if (variablePrefix.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[')){
+                    else if (variablePrefix.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine)\\[')){
                         varLine.splice(0,0,[varConsts[0],variablePrefix.split('=')[1],'A straight line.']);
                         varLineIndex.splice(0,0,varConsts[0]);
                     }
@@ -611,6 +611,7 @@ function activate(context) {
           provideHover(document,position){
             
             const wordCurrent = document.getText(document.getWordRangeAtPosition(position));
+            const lineCurrent = document.lineAt(position).text;
 
             for (let i=0; i<refDoc.length; i++){
                 if (wordCurrent == refDoc[i][0]){
@@ -620,7 +621,7 @@ function activate(context) {
                 }
             }
 
-            if (refHover){
+            if (refHover && !lineCurrent.match('^#')){
                 return new vscode.Hover(refHover);
             }
             else{
@@ -636,7 +637,7 @@ function activate(context) {
                     else if (varS.match('=(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')){
                         varRefList.push([varConsts[0],varS.split('=')[1],'A fixed point.']);
                     }
-                    else if (varS.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine)\\[')){
+                    else if (varS.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine)\\[')){
                         varRefList.push([varConsts[0],varS.split('=')[1],'A straight line.']);
                     }
                     else if (varS.match('=(Circle3|Compass|Circle)\\[')){
@@ -647,10 +648,9 @@ function activate(context) {
                     }
                 }
                 
-                const ifNamed = document.lineAt(position.line).text;
                 var namesPos = [];
-                if (ifNamed.match('named=')){
-                    let namedList = ifNamed.split('');
+                if (lineCurrent.match('named=')){
+                    let namedList = lineCurrent.split('');
                     for (let i=0; i<namedList.length; i++){
                         if (namedList[i] == '.'){
                             namesPos.push(i+1);
@@ -668,7 +668,7 @@ function activate(context) {
                     }
                 }
 
-                if (varHover){
+                if (varHover && !lineCurrent.match('^#')){
                     return new vscode.Hover(varHover);
                 }
             }
@@ -684,8 +684,14 @@ function activate(context) {
             const rangeCurrent = document.getWordRangeAtPosition(position);
             const wordCurrent = document.getText(rangeCurrent);
             const lineCurrent = document.lineAt(position).text;
-            if (wordCurrent.match('^(Linepoint|Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint|Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine|Circle3|Compass|Circle|Segment|ShiftSeg|initial|explore|hidden|named|result|movepoints|rules|(-?[0-9]+\\.?[0-9]*))$')){
-                throw new Error('Can\'t rename this symbol.');
+            if (!rangeCurrent){
+                throw new Error('Can\'t find symbols.');
+            }
+            if (wordCurrent.match('^(Linepoint|Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint|Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine|Circle3|Compass|Circle|Segment|ShiftSeg|initial|explore|hidden|named|result|movepoints|rules)$')){
+                throw new Error('Can\'t rename functions.');
+            }
+            else if (wordCurrent.match('^(-?[0-9]+\\.?[0-9]*)$')){
+                throw new Error('Can\'t rename numbers.');
             }
             if (lineCurrent.match('^#')){
                 throw new Error('Can\'t rename comments.');

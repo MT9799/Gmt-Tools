@@ -1,3 +1,7 @@
+## v0.6.2
+
+Fixed bugs
+
 ## v0.6.1
 
 Feat

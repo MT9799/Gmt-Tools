@@ -42,7 +42,7 @@ Variables (more accurate)
 
 List all symbols and level-settings
 
-![1714157357247](image/README/outline.png)
+![Outline](image/README/outline.png)
 
 ---
 
@@ -50,7 +50,7 @@ List all symbols and level-settings
 
 Including help window in functions' completion and variables' completion
 
-![1714157548348](image/README/signaturehelp.png)
+![Signature](image/README/signaturehelp.png)
 
 ---
 
@@ -60,7 +60,7 @@ Support hovering windows to variables and functions
 
 Hover the cursor over the words to show
 
-![1714387000151](image/README/hover1.png)![1714387006746](image/README/hover2.png)
+![HoverVar](image/README/hover1.png)![HoverFunc](image/README/hover2.png)
 
 ---
 
@@ -70,7 +70,7 @@ Select a renamable symbol and press F2 to rename
 
 Automatically distinguish between variable and display names(in 'named')
 
-![1715011653615](image/README/rename.png)
+![Rename](image/README/rename.png)
 
 ## Usage
 
