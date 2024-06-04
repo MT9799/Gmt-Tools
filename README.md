@@ -4,7 +4,9 @@ A multifunctional extension pack for gmt files of the game Euclidea in Visual St
 
 ## Features
 
-**Display various parts of the code in different colors for easy editing and debugging:**
+### Syntax highlighting:
+
+Display various parts of the code in different colors for easy editing and debugging:
 
 Geometric figures(points, lines, circles, names)
 
@@ -26,7 +28,9 @@ Comments
 
 ---
 
-**Automatic completion of functions and blocks:**
+### Automatic completion:
+
+With functions and blocks:
 
 Constructional functions
 
@@ -38,7 +42,7 @@ Variables (more accurate)
 
 ---
 
-**Outline:**
+### Outline:
 
 List all symbols and level-settings
 
@@ -46,7 +50,7 @@ List all symbols and level-settings
 
 ---
 
-**More practical helpers:**
+### More practical helpers:
 
 Including help window in functions' completion and variables' completion
 
@@ -54,7 +58,7 @@ Including help window in functions' completion and variables' completion
 
 ---
 
-**Hovering:**
+### Hovering:
 
 Support hovering windows to variables and functions
 
@@ -64,7 +68,7 @@ Hover the cursor over the words to show
 
 ---
 
-**Renaming:**
+### Renaming:
 
 Select a renamable symbol and press F2 to rename
 
@@ -72,13 +76,31 @@ Automatically distinguish between variable and display names(in 'named')
 
 ![Rename](image/README/rename.png)
 
+---
+
+### Diagnostics(Beta):
+
+Support basic semantic error checking, including punctuation issues, variables and functions checks, etc.
+
+Errors(red) and warnings(yellow)
+
+![Diagnostics](image/README/diag1.png)![Diagnostics](image/README/diag2.png)![Diagnostics](image/README/diag3.png)![Diagnostics](image/README/diag4.png)![Diagnostics](image/README/diag5.png)![Diagnostics](image/README/diag6.png)![Diagnostics](image/README/diag7.png)
+
 ## Usage
 
-0. Visual Studio Code (with Nodejs) ; Git
-1. Open this extension pack (folder) in VSCode
+0. Visual Studio Code
+1. Open this extension pack **(folder)** in VSCode
 2. F5 to open a new VSCode window
 3. Open a gmt file
 4. Enjoy
+
+---
+
+Also can be imported as an integral extension
+
+Directory: users/xxx/.vscode\/extensions/
+
+Select ***Gmt Highlighting Theme*** if syntax highlighting dosen't work normally
 
 ## More
 

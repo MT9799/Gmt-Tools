@@ -2,7 +2,7 @@
   "name": "gmt",
   "displayName": "Gmt Extension Pack",
   "description": "An extension pack for gmt files of the game Euclidea",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "engines": {
     "vscode": "^1.88.0"
   },
