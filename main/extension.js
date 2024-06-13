@@ -1440,7 +1440,7 @@ function activate(context) {
                     if (getVar) {
 
                         //check redefinitions
-                        if (varAll.indexOf(getVar[0]) != -1 && getVar[0] != 'result') {
+                        if (varAll.indexOf(getVar[0]) != -1 && !getVar[0].match('^(initial|explore|hidden|named|result|movepoints|rules)$')) {
                             let varRegE = getVar[0]+'(?==)';
                             let rVarAll = dText.matchAll(RegExp(varRegE,'g'));
                             for (const match of rVarAll) {
