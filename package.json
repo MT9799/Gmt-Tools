@@ -41,11 +41,11 @@
     "themes": [{
       "label": "Gmt Highlighting Theme Dark",
       "uiTheme": "vs-dark",
-      "path": "./themes/theme.xml"
+      "path": "./themes/theme.tmTheme"
     },{
       "label": "Gmt Highlighting Theme Light",
       "uiTheme": "vs",
-      "path": "./themes/themel.xml"
+      "path": "./themes/themel.tmTheme"
     }]
   }
 }
