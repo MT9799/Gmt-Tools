@@ -1332,7 +1332,7 @@ function activate(context) {
                                 lineRange.splice(j,1);
                             }
                         }
-                        let noName = lineCrt.matchAll(/((?<=,)[^\.]*(?=,))|((?<=,)[^\.]*$)|((?<==)[^\.]*(?=,))/g);
+                        let noName = lineCrt.matchAll(/((?<=,)[^\.,]*(?=,))|((?<=,)[^\.,]*$)|((?<==)[^\.,]*(?=,))/g);
                         for (const match of noName) {
                             let range = new vscode.Range(
                                 i, match.index,
