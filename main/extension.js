@@ -646,11 +646,17 @@ function activate(context) {
                     if (varS.match('=(Linepoint)?\\[')) {
                         varRefList.push([varConsts[0],varS.split('=')[1],'A free point.']);
                     }
-                    else if (varS.match('=(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[')) {
+                    else if (varS.match('=(Intersect|Midpoint|CenterPoint|PolarPoint)\\[')) {
                         varRefList.push([varConsts[0],varS.split('=')[1],'A fixed point.']);
                     }
-                    else if (varS.match('=(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine)\\[')) {
+                    else if (varS.match('=(EdgePoint)\\[')) {
+                        varRefList.push([varConsts[0],varS.split('=')[1],'An imaginary point.']);
+                    }
+                    else if (varS.match('=(Line|Parallel|Perp|ABisect|PBisect|Tangent|PolarLine)\\[')) {
                         varRefList.push([varConsts[0],varS.split('=')[1],'A straight line.']);
+                    }
+                    else if (varS.match('=(Ray|FixAngle|CopyAngle)\\[')) {
+                        varRefList.push([varConsts[0],varS.split('=')[1],'A ray.']);
                     }
                     else if (varS.match('=(Circle3|Compass|Circle)\\[')) {
                         varRefList.push([varConsts[0],varS.split('=')[1],'A circle.']);
