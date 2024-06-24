@@ -1,0 +1,111 @@
+{
+  "name": "gmt-theme-dark",
+  "type": "dark",
+  "tokenColors": [
+    {
+      "scope": "comment.gmt",
+      "settings": {
+        "foreground": "#339900",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "keyword.control.gmt",
+      "settings": {
+        "foreground": "#770022",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": "constant.numeric.gmt",
+      "settings": {
+        "foreground": "#662185",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "keyword.control.operator.gmt",
+      "settings": {
+        "foreground": "#4A3157",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "entity.name.class.advanced.gmt",
+      "settings": {
+        "foreground": "#ff7fff",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "entity.name.function.basic.gmt",
+      "settings": {
+        "foreground": "#aa3aaa",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "string.function.levelsetting.gmt",
+      "settings": {
+        "foreground": "#003FFF",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "named.gmt",
+      "settings": {
+        "foreground": "#333333",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "variable.other.constant.line.gmt",
+      "settings": {
+        "foreground": "#ff6600",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "storage.type.circle.gmt",
+      "settings": {
+        "foreground": "#cc5500",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "variable.point.gmt",
+      "settings": {
+        "foreground": "#FF0000",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "variable.other.gmt",
+      "settings": {
+        "foreground": "#660033",
+        "fontStyle": ""
+      }
+    },
+    {
+      "scope": "keyword.control.connector.gmt",
+      "settings": {
+        "foreground": "#346D39",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "punctuation.bracket.gmt",
+      "settings": {
+        "foreground": "#282D4A",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "keyword.control.argument.gmt",
+      "settings": {
+        "foreground": "#006E6E",
+        "fontStyle": "bold"
+      }
+    }
+  ]
+}

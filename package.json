@@ -2,7 +2,7 @@
   "name": "gmt",
   "displayName": "Gmt Extension Pack",
   "description": "An extension pack for gmt files of the game Euclidea",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "engines": {
     "vscode": "^1.88.0"
   },
@@ -14,10 +14,12 @@
     "url": "https://github.com/MT9799/Gmt-Extension-Pack"
   },
   "author": "MT9799",
+  "publisher": "MT9799",
   "keywords": [
     "gmt",
     "Extension"
   ],
+  "icon": "image/icon.png",
   "main": "./main/extension.js",
   "activationEvents": ["onLanguage:'gmt'"],
   "contributes": {
@@ -41,11 +43,11 @@
     "themes": [{
       "label": "Gmt Highlighting Theme Dark",
       "uiTheme": "vs-dark",
-      "path": "./themes/theme.tmTheme"
+      "path": "./themes/theme.tmTheme.json"
     },{
       "label": "Gmt Highlighting Theme Light",
       "uiTheme": "vs",
-      "path": "./themes/themel.tmTheme"
+      "path": "./themes/themel.tmTheme.json"
     }]
   }
 }

@@ -27,18 +27,18 @@
     "comments": {
       "patterns": [
         {
-          "name": "comment",
+          "name": "comment.gmt",
           "match": "^#.*$"
         }]
     },
     "keywords": {
       "patterns": [
         {
-          "name": "keyword",
+          "name": "keyword.control.gmt",
           "match": "((CoorX|CoorY|Position|Degree)(?=\\(Num\\)))|(Object[^,]*(?=\\(Ln/Ccl\\)))|(Param(?=\\(0/1\\)))|((Exception|Point[^,]*|Endpoint[^,]*|Center[^,]*|Radius|Vertex[^,]*|Direction)(?=\\(Pt\\)))|(Line(?=\\(Ln\\)))|(Circle(?=\\(Ccl\\)))|((?<=\\]: )(Point[^\\[,]*|Line[^\\[,]*|Ray|Circle|Segment)$)|((?<==)\\.\\.\\.(Obj\\?Obj|Obj<:\\.\\.\\.Obj_displayed>|Obj|FreePts))"
         },
         {
-          "name": "constant.value",
+          "name": "constant.numeric.gmt",
           "match": "(?<=\\()Num(?=[\\)/])"
         }
       ]
@@ -46,22 +46,22 @@
     "operators": {
       "patterns": [
         {
-          "name": "operator",
+          "name": "keyword.control.operator.gmt",
           "match": ">|<|/|#"
         }]
     },
     "functions": {
       "patterns": [
         {
-          "name": "function.construction.advanced",
+          "name": "entity.name.class.advanced.gmt",
           "match": "EdgePoint|CenterPoint|Circle3|Midpoint|Parallel|Perp|ABisect|PBisect|ShiftSeg|Compass|FixAngle|CopyAngle|Tangent|PolarLine|PolarPoint"
         },
         {
-          "name": "function.construction.basic",
+          "name": "entity.name.function.basic.gmt",
           "match": "Linepoint|Segment|Ray|Line|Intersect|Circle"
         },
         {
-          "name": "function.levelsetting",
+          "name": "string.function.levelsetting.gmt",
           "match": "initial|movepoints|hidden|named|result|explore|rules|check_level|undolist"
         }
       ]
@@ -69,23 +69,23 @@
     "variables": {
       "patterns": [
         {
-          "name": "variable.named",
+          "name": "named.gmt",
           "match": "(?<=named.+\\.)(Name|[A-Za-z0-9])"
         },
         {
-          "name": "variable.line",
+          "name": "variable.other.constant.line.gmt",
           "match": "((?<=\\()Ln(?=[\\)/]))|([Ss][0-9]+)|(^.*(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAnfle|Tangent|PolarLine|Segment|ShiftSeg)\\[))"
         },
         {
-          "name": "variable.circle",
+          "name": "storage.type.circle.gmt",
           "match": "((?<=[\\(/])Ccl(?=\\)))|([c][0-9]+)|(^.*(?==(Circle3|Compass|Circle)\\[))"
         },
         {
-          "name": "variable.point",
+          "name": "variable.point.gmt",
           "match": "((?<=\\()Pt(?=\\)))|([A-RT-Z][0-9]*)|[A-Z]|(^.*(?==(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint|Linepoint)?\\[))"
         },
         {
-          "name": "variable.other",
+          "name": "variable.other.gmt",
           "match": "([A-Za-z][A-Za-z]+[0-9]*)|[a-z]"
         }
 ]
@@ -93,11 +93,11 @@
     "punctuations": {
       "patterns": [
         {
-          "name": "punctuation.connector",
+          "name": "keyword.control.connector.gmt",
           "match": "\\.|\\||:"
         },
         {
-          "name": "punctuation.bracket",
+          "name": "punctuation.bracket.gmt",
           "match": "\\[|\\]"
         }
       ]
@@ -105,11 +105,11 @@
     "constants": {
       "patterns": [
         {
-          "name": "constant.argument",
+          "name": "keyword.control.argument.gmt",
           "match": "((?<=[\\(/])[01](?=[\\)/]))|((?<=EdgePoint\\[[^,]*,)(0|1))|((?<=(Intersect|Tangent)\\[[^,]*,[^,]*,)(0|1))"
         },
         {
-          "name": "constant.value",
+          "name": "constant.numeric.gmt",
           "match": "-?[0-9]+\\.?[0-9]*"
         }
       ]

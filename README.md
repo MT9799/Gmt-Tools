@@ -4,7 +4,7 @@ A multifunctional extension pack for gmt files of the game Euclidea in Visual St
 
 ## Features
 
-### Syntax highlighting:
+### Syntax highlighting
 
 Display various parts of the code in different colors for easy editing and debugging:
 
@@ -28,7 +28,7 @@ Comments
 
 ---
 
-### Automatic completion:
+### Automatic completion
 
 With functions and blocks:
 
@@ -42,7 +42,7 @@ Variables (more accurate)
 
 ---
 
-### Outline:
+### Outline
 
 List all symbols and level-settings
 
@@ -50,7 +50,7 @@ List all symbols and level-settings
 
 ---
 
-### More practical helpers:
+### More practical helpers
 
 Including help window in functions' completion and variables' completion
 
@@ -58,7 +58,7 @@ Including help window in functions' completion and variables' completion
 
 ---
 
-### Hovering:
+### Hovering
 
 Support hovering windows to variables and functions
 
@@ -68,7 +68,7 @@ Hover the cursor over the words to show
 
 ---
 
-### Renaming:
+### Renaming
 
 Select a renamable symbol and press F2 to rename
 
@@ -78,7 +78,7 @@ Automatically distinguish between variable and display names(in 'named')
 
 ---
 
-### Diagnostics(Beta):
+### Diagnostics(Beta)
 
 Support basic semantic error checking, including punctuation issues, variables and functions checks, etc.
 
