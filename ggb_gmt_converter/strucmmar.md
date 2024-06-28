@@ -1,0 +1,250 @@
+# 参考：ggb与gmt文件结构、语法
+
+## 一、ggb文件
+
+Geogebra的数据存储文件，后缀名.ggb，其实是一个zip，里面一般有以下文件：
+
+`geogebra_defaults2d.xml` - 2d模式下的预设文件，里面有默认点型、线型等，具体设置这里略；
+
+`geogebra_defaults3d.xml` - 3d模式下的预设文件，跟2d的文件类似，具体设置这里略；
+
+`geogebra.xml` - 绘图的核心文件，下面会详述；
+
+`geogebra_javascript.js` - 似乎是ggb程序的全局函数接口，不过一般用不上；
+
+`geogebra_thumbnail.png` - ggb文档的缩略图，即保存文件时窗口中的图象。
+
+有时会有以下文件：
+
+`geogebra_macro.xml` - 宏文件，保存用户自定义的工具等；
+
+---
+
+下面稍微详细地介绍核心文件——geogebra.xml。
+
+直接上示例：
+
+```xml
+<!--有很多省略，感兴趣者可以自行探究-->
+<geogebra ...>
+
+<!--控制程序gui的状态-->
+<gui>
+    ...
+</gui>
+
+<!--控制坐标系和网格的状态-->
+<euclidianView>
+    ...
+    <coordSystem .../>
+    ...
+    <lineStyle axes= grid=/>
+    <axis id="0" show="true" .../>
+    <axis id="1" show="true" .../>
+</euclidianView>
+
+<!--一些部分，略过-->
+<algebraView>
+    ...
+</algebraView>
+<kernel>
+    ...
+</kernel>
+...
+
+<!--核心绘图部分-->
+<construction title="" author="" date="">
+
+    <!--element存储每一个对象的信息，type是对象类型（此处是点），label是对象名称，若有下标则用下划线连接，如“a_1”-->
+    <element type="point" label="A">
+        <!--控制显示状态-->
+        <show object="true" label="true" ev="4"/>
+        <!--条件，如下例为当布尔值a为true时显示对象-->
+        <condition showObject="a"/>
+        <!--对象颜色、透明度-->
+        <objColor r="77" g="77" b="255" alpha="0.0"/>
+        <!--对象图层-->
+        <layer val="0"/>
+        <!--对象模式？-->
+        <labelMode val="0"/>
+        <!--动画-->
+        <animation step="0.1" speed="1" type="1" playing="false"/>
+        <!--点径和样式-->
+        <pointSize val="5"/>
+        <pointStyle val="0"/>
+        <!--位置，对于自由点和对象上的点来说很重要，而对于其他对象可能就是辅助绘图的作用-->
+        <coords x="-52.83478338979716" y="-10.290286031896448" z="1.0"/>
+    </element>
+
+    <element ...>
+        ...
+    </element>
+
+    <!--command存储绘图指令，即某一对象的来源，name为指令名，详见下文-->
+    <command name="Circle">
+        <!--input为父对象，output为从其生成的图形-->
+        <input a0="A" a1="B"/>
+        <output a0="c"/>
+    </command>
+
+    <!--对于command中的output，一般都有一个element对应，而自由点则没有command-->
+    <!--type为conic（圆）的情况-->
+    <element type="conic" label="c">
+        <!--和点差不多，省略-->
+        ...
+        <!--线的样式，包括粗细、线型、不透明度等-->
+        <lineStyle thickness="5" type="0" typeHidden="1" opacity="178"/>
+        <!--？未知用途-->
+        <eqnStyle style="specific"/>
+        <eigenvectors x0="1.0" y0="0.0" z0="1.0" x1="-0.0" y1="1.0" z1="1.0"/>
+        <!--存储位置信息的矩阵，A2是一般式的常数项，A4和A5是圆心坐标的相反数-->
+        <matrix A0="1.0" A1="1.0" A2="-13186.39405635661" A3="0.0" A4="52.83478338979716" A5="10.290286031896448"/>
+    </element>
+    ...
+    <command name="Line">
+        ...
+    </command>
+    <!--type为line（线）的情况-->
+    <element type="line" label="f">
+        <!--和圆差不多，省略-->
+        ...
+        <!--存储线的位置，为一般式（ax+by+c=0）-->
+        <coords x="249.25271993503958" y="294.4539903895778" z="-6564.85154844239"/>
+    </element>
+
+</construction>
+</geogebra>
+
+```
+
+element的type属性还有“ray”（射线）、“segment”（线段）、“boolean”、“button”、“list”等等，而能进行gmt转换的只有前2种ray、segment以及示例中的3种point、line、conic。
+
+---
+
+关于command：能进行gmt转换的只有自由点没有这个元素。下面是一些的用法，如果出现了其他的，那很可能是使用了一些不支持转换的绘制指令：
+
+```xml
+<!--直线-->
+<command name="Line">
+    <!--a0为经过的第一点，a1为经过的第二点-->
+    <input a0= a1= />
+    <output a0= />
+</command>
+
+<!--以下在readme中已有介绍，故从简，仅写name、输入，必要时写输出-->
+<!--Ray：射线，a0为端点，a1为经过的点-->
+<!--Segment：线段，a0为第一个端点，a1为第二个端点-->
+<!--Circle：圆，如果有a2，就是经过3点a0、a1、a2的圆；如果a1是线段或者长度（包括线段对象、“Segment[A, B]”及“Radius[c]”），则是以a0为圆心，a1为半径的圆；如果a1是点，则是以a0为圆心，a1为圆上一点的圆-->
+<!--Point：对象上的点，a0为对象-->
+<!--Intersect：交点，a0为第一个对象，a1为第二个对象，a2控制是哪个交点（线线交点没有a2）-->
+<!--Midpoint：中点，如果有a1，则a0为第一点，a1为第二点；如果只有a0（线段），则为线段中点-->
+<!--OrthogonalLine：垂线，a0为垂线上一点，a1为与其垂直的线-->
+<!--LineBisector：中垂线，如果有a1，则a0为第一点，a1为第二点；如果只有a0（线段），则为线段中垂线-->
+<!--AngularBisetctor：角平分线，a0、a2分别为角两边上一点，a1为角的顶点；如果没有a2而是两线a0、a1，则输出其两条角平分线-->
+<!--Center：中心，a0为一圆-->
+<!--Tangent：切线，a0为一点，a1为一圆，输出通常有两个，如果点在圆上那么输出只有一个；如果a0为一线，则为圆的与其平行的两切线，输出通常有两个-->
+<!--Polar：极线，a0为一点，a1为一圆-->
+<!--Diameter：（共轭）直径，a0为一线，a1为一圆，表现为过圆心的垂线-->
+<!--（以下为自定义工具）-->
+<!--PolarPoint：极点，a0为一线，a1为一圆-->
+<!--EdgePoint：无穷远点，a0为一线，输出两假想的点-->
+<!--FixAngle：定值角，a0为角的顶点，a1为始边上一点，a2为逆时针的角度数，输出为射线-->
+<!--CopyAngle：复制角，a0、a1、a2为被复制的角的边上一点、顶点和另一边上一点，a3、a4为复制后角的边上一点和顶点，输出也为射线-->
+<!--ShiftSeg：平移线段，a0为被平移的线段的一端点，a1为另一端点，a2为平移后的一端点，输出为一反向延长线段a0及其另一顶点a1-->
+```
+
+## 二、gmt文件
+
+游戏Euclidea的关卡预绘制文件，后缀名为.gmt。（猜测是“geometry”的缩写）
+
+分为绘制和设定两部分，前者将全部的图形画出，后者决定每种模式下显示出的图形。
+
+---
+
+语法：
+
+* **全局：**
+  “#”在开头，表注释，一般于开头简述关卡名；
+  “=”为赋值，意为“是”；
+  变量名一般大写字母表示点，c+数字表示圆，s+数字表示直线或射线，S+数字表示线段（点过多时可使用A1,B1等，但谨防重名）；
+  并列的对象间用半角逗号“,”隔开；
+  "initial""result"等为关卡相关设定，下文有述。
+* **预绘制：**
+  变量习惯规则已述，按照逻辑顺序绘制。（需要注意的是，预绘制只是找出条件和所求作，不一定要按照题目限制和最简方法绘制，而有时为了避免这个文件泄露解法，建议始终不按照最简作法预绘制）
+
+  * [x,y] - 平面中的点，动点（原点几乎在屏幕正中心，不同的是，其坐标系y轴正方向是朝下的）；
+  * Line[A,B] - 过点A,B的直线；
+  * Segment[A,B] - 线段AB；
+  * Ray[A,B] - 从点A出发过点B的射线；
+  * Circle[A,B] - 以点A为圆心，AB为半径的圆；
+  * Compass[A,B,C] - 以点C为圆心，AB长为半径的圆；
+  * Intersect[对象1,对象2,x,A?] - 两个对象的一个交点，两线交点x=0，线与圆交点、圆与圆交点x=0或1（若是线与圆，则按线的绘制方向（垂线，中垂线，极线等的绘制方向难以解释，建议自己尝试）计数；若是圆与圆，则以连心线的绘制方向起逆时针计数），第四个参数猜测是作排除用，表示两对象非A点的另一个交点（一般用在移动对象时可能引起的参数x发生颠倒导致两点重叠等错误时），如果写了，参数x可能会被无视；若不写不会引起歧义，则省略或写为“-”；
+  * Linepoint[对象,x] - 对象上的动点，对象是圆，x为（x轴正方向起）顺时针弧长。对象是线的情况很复杂，如直线是第一个点正方向与两定义点间距离倍数；垂线是定义点“正方向”与被垂直的线定义点间距离倍数；中垂线虽然也是两定义点间正方向距离倍数，但是正方向起点在45°夹角处；角平分线则是顶点正方向与坐标系100单位长度倍数；切线是切点为起点正方向与切圆半径的倍数，等等，建议自己尝试；
+  * Midpoint[A,B] - A、B的中点；
+  * Perp[A,s1] - 过A作s1的垂线；
+  * Parallel[A,s1] - 过A作s1的平行线；
+  * FixAngle[A,B,x] - 以A为顶点，AB为始边作逆时针转过x度的射线（可能有精度问题，请慎用）；
+  * ABisect[A,B,C] - 作角ABC的角平分线；
+  * PBisect[A,B] - 作AB的中垂线；
+  * CenterPoint[c1] - 作圆c1的中心；
+  * EdgePoint[s1,x] - 线s1上的无穷远点，x=0或1，分别为线负、正方向上假想的无穷远的点；
+  * Tangent[A,c1,x] - 过A作c1的切线，x=0或1，分别为线与圆心连线方向上、下方的切线；
+  * Circle3[A,B,C] - 过A、B、C三点作圆；
+  * CopyAngle[A,B,C,D,E] - 以E为新顶点，D为新边上一点，复制角ABC，为射线；
+  * ShiftSeg[A,B,C] - 平移线段BA，使B到C的位置；
+  * PolarLine[A,c1] - 作A关于圆c1的极线；
+  * PolarPoint[s1,c1] - 作线s1关于圆c1的极点。
+* **设定：**
+  （default.realm中的用户操作函数此处不赘述）
+
+  * check_level - 检查等级？，官方的关卡写在开头，作用不明；
+  * ver - 等级？，也是官方的关卡写在开头，作用不明；
+  * initial - 初始条件，刚开始黑实线显示的对象；
+  * named - 带标签的初始条件，这里写了initial就可以不写；
+  * hidden - 作图时隐藏的对象，在移动模式不隐藏（与movepoints有部分相似功能，所以一般不用）；
+  * movepoints - 可移动点，本身就是动点且initial有的不必写，写的一般是initial没给，但条件范围可变的动点，如果无则不用写；
+  * result - 所求，如果要求作出（程序判定）的和画面显示作出（橙色标亮）的不一致（一般是判直线而不判线段；标亮时一般连带题设等标出完整的图形），前后者中间加“:”，如果有多解则另起分开写；
+  * explore - 探索界面显示的橙色标亮内容，一般是所求及其相关；
+  * rules - 题目限制（就是有些题移动对象时会出现红色虚线的），如“对象1#对象2”表示两者须相交，“对象1/对象2”表示两者不能相交，“A.B.C>90”表示角ABC须大于90度，“A.B<C.D”表示AB长度须小于CD，“|”则表示“或”条件。当移动对象使题解天然不存在时，不必写；而当移动之后能用更优解解出、不能在同一图形下画出所有的解、不能用同一种（最优）解法画出所有的解、以及移动之后result判定不出来的，诸如此类情况才有必要写rules。
+
+下面是一个示例，来自官方的13.10 - “Billinards on Round Table”：
+
+```gmt
+#BilliardsOnRoundTable
+ver=1
+
+O=[0,20]
+P=[200,130]
+M=Midpoint[O,P]
+c1=Circle[O,P]
+s1=Line[P,O]
+A=Linepoint[s1,1.6]
+B=Linepoint[s1,0.6]
+r1=Segment[A,B]
+s2=PBisect[A,B]
+E=Intersect[s1,s2,0,-]
+c2=Circle[E,B]
+F=Intersect[s2,c2,1,-]
+s3=Line[F,O]
+G=Intersect[s3,c2,1,F]
+s4=PBisect[G,O]
+H=Intersect[s4,s1,0,-]
+c3=Circle[H,O]
+I=Intersect[c3,c1,1,-]
+J=Intersect[c3,c1,0,I]
+
+initial=c1
+
+hidden=P
+
+named=O,A,B
+
+result=I
+result=J
+
+explore=I
+
+rules=O#r1,O.M<O.H
+```
+
+以上所有结果皆由试验拟出，可能与实际有偏差，如果发现错误请指出。
