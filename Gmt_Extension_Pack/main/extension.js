@@ -9,8 +9,8 @@ function activate(context) {
 
             return new Promise(resolve => 
             {
-                const symbolsArr = [];
-                const nodes = [symbolsArr];
+                //const symbolsArr = [];
+                const nodes = [];
                 let isInVarfreept = false;
                 let isInVarpt = false;
                 let isInVarline = false;
@@ -32,13 +32,12 @@ function activate(context) {
 
                         if (!isInVarfreept) {
                             const varSymbolKind = new vscode.DocumentSymbol('Var_FreePoints','',vscode.SymbolKind.Function,line.range, line.range);
-                            nodes[0].push(varSymbolKind);
-                            nodes.push(varSymbolKind.children);
+                            nodes.push(varSymbolKind);
                             var varfreeptset = nodes.length;
                             isInVarfreept = true;
                         }
 
-                        nodes[varfreeptset-1].push(marker_symbol);
+                        nodes[varfreeptset-1].children.push(marker_symbol);
                     }
 
                     else if (line.text.match(new RegExp('^.+(?==(Intersect|Midpoint|EdgePoint|CenterPoint|PolarPoint)\\[)'))) {
@@ -51,13 +50,12 @@ function activate(context) {
 
                         if (!isInVarpt) {
                             const varSymbolKind = new vscode.DocumentSymbol('Var_Points','',vscode.SymbolKind.Function,line.range, line.range);
-                            nodes[0].push(varSymbolKind);
-                            nodes.push(varSymbolKind.children);
+                            nodes.push(varSymbolKind);
                             var varptset = nodes.length;
                             isInVarpt = true;
                         }
 
-                        nodes[varptset-1].push(marker_symbol);
+                        nodes[varptset-1].children.push(marker_symbol);
                     }
 
                     else if (line.text.match(new RegExp('^.+(?==(Line|Ray|Parallel|Perp|ABisect|PBisect|FixAngle|CopyAngle|Tangent|PolarLine)\\[)'))) {
@@ -70,13 +68,12 @@ function activate(context) {
 
                         if (!isInVarline) {
                             const varSymbolKind = new vscode.DocumentSymbol('Var_Lines','',vscode.SymbolKind.Function,line.range, line.range);
-                            nodes[0].push(varSymbolKind);
-                            nodes.push(varSymbolKind.children);
+                            nodes.push(varSymbolKind);
                             var varlineset = nodes.length;
                             isInVarline = true;
                         }
 
-                        nodes[varlineset-1].push(marker_symbol);
+                        nodes[varlineset-1].children.push(marker_symbol);
                     }
 
                     else if (line.text.match(new RegExp('^.+(?==(Circle3|Compass|Circle)\\[)'))) {
@@ -89,13 +86,12 @@ function activate(context) {
 
                         if (!isInVarcircle) {
                             const varSymbolKind = new vscode.DocumentSymbol('Var_Circles','',vscode.SymbolKind.Function,line.range, line.range);
-                            nodes[0].push(varSymbolKind);
-                            nodes.push(varSymbolKind.children);
+                            nodes.push(varSymbolKind);
                             var varcircleset = nodes.length;
                             isInVarcircle = true;
                         }
 
-                        nodes[varcircleset-1].push(marker_symbol);
+                        nodes[varcircleset-1].children.push(marker_symbol);
                     }
 
                     else if (line.text.match(new RegExp('^.+(?==(Segment|ShiftSeg)\\[)'))) {
@@ -108,13 +104,12 @@ function activate(context) {
 
                         if (!isInVarseg) {
                             const varSymbolKind = new vscode.DocumentSymbol('Var_Segments','',vscode.SymbolKind.Function,line.range, line.range);
-                            nodes[0].push(varSymbolKind);
-                            nodes.push(varSymbolKind.children);
+                            nodes.push(varSymbolKind);
                             var varsegset = nodes.length;
                             isInVarseg = true;
                         }
 
-                        nodes[varsegset-1].push(marker_symbol);
+                        nodes[varsegset-1].children.push(marker_symbol);
                     }
 
                     else if (line.text.match(new RegExp('^(initial|named|movepoints|hidden|result|explore|rules)=.*',))) {
@@ -125,7 +120,7 @@ function activate(context) {
                             line.range,line.range
                         );
 
-                        nodes[0].push(marker_symbol);
+                        nodes.push(marker_symbol);
                     }
 
                     else if (line.text.startsWith("#")) {
@@ -135,10 +130,10 @@ function activate(context) {
                             vscode.SymbolKind.String,
                             line.range, line.range);
 
-                        nodes[0].push(cmd_symbol);
+                        nodes.push(cmd_symbol);
                     }
                 }
-                resolve(symbolsArr);
+                resolve(nodes);
             })
           }
         }
