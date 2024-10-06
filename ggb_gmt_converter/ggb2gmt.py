@@ -148,8 +148,8 @@ def process_xml(xml_file):
                     rd_c = c_in1[br0+1:br1]
                     rd_cp = ele_rnm.get(rd_c)
                     t_ct = var_dicp.get(rd_cp)[1]
-                    if var_dicp.get(rd_cp)[4] is not None:
-                        t_ct = var_dicp.get(rd_cp)[1]
+                    #if var_dicp.get(rd_cp)[4] is not None:
+                        #t_ct = var_dicp.get(rd_cp)[1]
                     if var_dicp.get(rd_cp)[3] is not None or ele_dict.get(var_dic.get(rd_cp)[2]) == 'point':
                         c_dp = var_dicp.get(rd_cp)[2]
                     else:
@@ -415,8 +415,8 @@ def process_xml(xml_file):
                 gmt_text += c_out1p+'=EdgePoint['+c_in0p+',1]\n'
             elif c_nm == 'Diameter':
                 d_ct = var_dicp.get(c_in1p)[1]
-                if var_dicp.get(c_in1p)[4] is not None:
-                    d_ct = var_dicp.get(c_in1p)[1]
+                #if var_dicp.get(c_in1p)[4] is not None:
+                    #d_ct = var_dicp.get(c_in1p)[1]
                 gmt_text += c_out0p+'=Perp['+d_ct+','+c_in0p+']\n'             
                 
             else:
