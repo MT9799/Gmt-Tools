@@ -31,10 +31,16 @@ def process_xml(xml_file):
             c_name = comm.get('name')
             c_out0 = comm.find('output').get('a0')
             c_out1 = comm.find('output').get('a1')
+            c_out2 = comm.find('output').get('a2')
+            c_out3 = comm.find('output').get('a3')
             if c_out0 != '':
                 com_list[c_out0] = c_name
             if c_out1 is not None and c_out1 != '':
                 com_list[c_out1] = c_name
+            if c_out2 is not None and c_out2 != '':
+                com_list[c_out2] = c_name
+            if c_out3 is not None and c_out3 != '':
+                com_list[c_out3] = c_name
 
         cc, ln, el, sg, pt = 1, 1, 1, 1, 0
         loc = {}
@@ -93,15 +99,25 @@ def process_xml(xml_file):
             c_out1 = comm.find('output').get('a1')
             c_out0p = ele_rnm.get(c_out0)
             c_out1p = ele_rnm.get(c_out1)
+            c_out2 = comm.find('output').get('a2')
+            c_out3 = comm.find('output').get('a3')
+            c_out2p = ele_rnm.get(c_out2)
+            c_out3p = ele_rnm.get(c_out3)
             c_nm = comm.get('name')
             var_dic[c_out0p] = [c_nm, c_in0, c_in1, c_in2, c_in3, c_in4]
             var_dicp[c_out0p] = [c_nm, c_in0p, c_in1p, c_in2p, c_in3p, c_in4p]
             if c_out0p is None:
-                print('Invalid construction: '+str(var_dicp[c_out0p])+'.')
+                print('Invalid construction: '+str(var_dic[c_out0p])+'.')
                 continue
             if c_out1p is not None:
                 var_dic[c_out1p] = [c_nm, c_in0, c_in1, c_in2, c_in3, c_in4]
                 var_dicp[c_out1p] = [c_nm, c_in0p, c_in1p, c_in2p, c_in3p, c_in4p]
+            if c_out2p is not None:
+                var_dic[c_out2p] = [c_nm, c_in0, c_in1, c_in2, c_in3, c_in4]
+                var_dicp[c_out2p] = [c_nm, c_in0p, c_in1p, c_in2p, c_in3p, c_in4p]
+            if c_out3p is not None:
+                var_dic[c_out3p] = [c_nm, c_in0, c_in1, c_in2, c_in3, c_in4]
+                var_dicp[c_out3p] = [c_nm, c_in0p, c_in1p, c_in2p, c_in3p, c_in4p]
             
             if c_nm == 'Line':
                 if ele_dict.get(c_in1) != 'point':
@@ -317,20 +333,61 @@ def process_xml(xml_file):
                 gmt_text += c_out0p+'=CenterPoint['+c_in0p+']\n'
             elif c_nm == 'Tangent':
                 if ele_dict.get(c_in0) != 'point':
-                    t_cp = var_dicp.get(c_in1p)[1]
-                    if var_dicp.get(c_in1p)[4] is not None:
+                    if ele_dict.get(c_in0) == 'conic':
+                        t_cp0 = var_dicp.get(c_in0p)[1]
+                        t_cp1 = var_dicp.get(c_in1p)[1]
+                        gmt_text += 'ln'+str(aln)+'=Line['+t_cp0+','+t_cp1+']\n'
+                        hid.append('ln'+str(aln))
+                        aln += 1
+                        gmt_text += 'ln'+str(aln)+'=Perp['+t_cp0+','+'ln'+str(aln-1)+']\n'
+                        hid.append('ln'+str(aln))
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in0p+',0]\n'
+                        hid.append('pt'+str(apt))
+                        apt += 1
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in0p+',1]\n'
+                        hid.append('pt'+str(apt))
+                        apt += 1
+                        aln += 1
+                        gmt_text += 'ln'+str(aln)+'=Perp['+t_cp1+','+'ln'+str(aln-2)+']\n'
+                        hid.append('ln'+str(aln))
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in1p+',0]\n'
+                        hid.append('pt'+str(apt))
+                        apt += 1
+                        aln += 1
+                        gmt_text += 'ln'+str(aln)+'=Line['+'pt'+str(apt-1)+','+'pt'+str(apt-3)+']\n'
+                        hid.append('ln'+str(aln))
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln-3)+','+'ln'+str(aln)+',0]\n'
+                        hid.append('pt'+str(apt))
+                        gmt_text += c_out0p+'=Tangent['+'pt'+str(apt)+','+c_in0p+',0]\n'
+                        if c_out1p is not None:
+                            gmt_text += c_out1p+'=Tangent['+'pt'+str(apt)+','+c_in0p+',1]\n'
+                        apt += 1
+                        aln += 1
+                        gmt_text += 'ln'+str(aln)+'=Line['+'pt'+str(apt-2)+','+'pt'+str(apt-3)+']\n'
+                        hid.append('ln'+str(aln))
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln-4)+','+'ln'+str(aln)+',0]\n'
+                        hid.append('pt'+str(apt))
+                        if c_out2p is not None:
+                            gmt_text += c_out2p+'=Tangent['+'pt'+str(apt)+','+c_in0p+',0]\n'
+                        if c_out3p is not None:
+                            gmt_text += c_out3p+'=Tangent['+'pt'+str(apt)+','+c_in0p+',1]\n'
+                        apt += 1
+                        aln += 1
+                    else:
                         t_cp = var_dicp.get(c_in1p)[1]
-                    gmt_text += 'ln'+str(aln)+'=Perp['+t_cp+','+c_in0p+']\n'
-                    hid.append('ln'+str(aln))
-                    gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in1p+',0]\n'
-                    hid.append('pt'+str(apt))
-                    apt += 1
-                    gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in1p+',1]\n'
-                    hid.append('pt'+str(apt))
-                    gmt_text += c_out0p+'=Tangent['+'pt'+str(apt-1)+','+c_in1p+',0]\n'
-                    gmt_text += c_out1p+'=Tangent['+'pt'+str(apt)+','+c_in1p+',1]\n'
-                    apt += 1
-                    aln += 1
+                        #if var_dicp.get(c_in1p)[4] is not None:
+                            #t_cp = var_dicp.get(c_in1p)[1]
+                        gmt_text += 'ln'+str(aln)+'=Perp['+t_cp+','+c_in0p+']\n'
+                        hid.append('ln'+str(aln))
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in1p+',0]\n'
+                        hid.append('pt'+str(apt))
+                        apt += 1
+                        gmt_text += 'pt'+str(apt)+'=Intersect['+'ln'+str(aln)+','+c_in1p+',1]\n'
+                        hid.append('pt'+str(apt))
+                        gmt_text += c_out0p+'=Tangent['+'pt'+str(apt-1)+','+c_in1p+',0]\n'
+                        gmt_text += c_out1p+'=Tangent['+'pt'+str(apt)+','+c_in1p+',1]\n'
+                        apt += 1
+                        aln += 1
                 else:
                     gmt_text += c_out0p+'=Tangent['+c_in0p+','+c_in1p+',0]\n'
                     if c_out1p is not None:
@@ -388,7 +445,6 @@ def process_xml(xml_file):
                     disp[lbl[7:]] = objppp
                 
                     
-
     #print(gmt_text)
     #gmt_text += '\n\ninitial='+",".join(i for i in list(ele_rnm.values()))+'\n'
     if ini != '':
@@ -400,7 +456,7 @@ def process_xml(xml_file):
     else:
         gmt_text += '\n#named=\n'
     if hid != []:
-        gmt_text += '\nhidden='+",".join(i for i in hid)+'\n'
+        gmt_text += '\n#hidden='+",".join(i for i in hid)+'\n'
     else:
         gmt_text += '\n#hidden=\n'
     if mpt != '':
