@@ -177,6 +177,7 @@ def process_xml(xml_file):
                     gmt_text += c_out0p+'=Linepoint['+c_in0p+','+str(-atan)+']\n'
                 else:
                     gmt_text += c_out0p+'=Linepoint['+c_in0p+','+str(r.randrange(20,80)/100)+']\n'
+
             elif c_nm == 'Intersect':
                 if c_in2 is None:
                     if c_out1p is None:
@@ -394,8 +395,8 @@ def process_xml(xml_file):
                         gmt_text += c_out1p+'=Tangent['+c_in0p+','+c_in1p+',1]\n'
             elif c_nm == 'Polar':
                 #if ele_dict.get(c_in0) != 'point':
-                    #gmt_text += '#Invalid polarline tool: '+c_out0+'=PolarLine['+c_in0p+','+c_in1p+',0]\n'
-                    #print('Can\'t convert the polarline tool used on a line.')
+                    #t_cp = var_dicp.get(c_in1p)[1]
+                    #gmt_text += c_out0p+'=Perp['+t_cp+','+c_in0p+']\n'
                 #else:
                 gmt_text += c_out0p+'=PolarLine['+c_in0p+','+c_in1p+']\n'
             elif c_nm == 'PolarPoint':
@@ -427,7 +428,7 @@ def process_xml(xml_file):
         for exp in constr.findall('expression'):
             lbl = exp.get('label')
             obj = exp.get('exp')
-            if obj != '{}':
+            if obj != '{}' and obj[0] == '{':
                 objp = obj[1:][:-1].split(', ')
                 objpp = [ele_rnm.get(i) for i in objp]
                 objppp = ','.join(i for i in objpp)
